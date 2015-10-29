@@ -1,11 +1,11 @@
 /**
- * RegionsController
+ * ManufacturersController
  *
- * @description :: Server-side logic for managing regions
+ * @description :: Server-side logic for managing manufacturers
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
 module.exports = {
-	
+
 };
 
