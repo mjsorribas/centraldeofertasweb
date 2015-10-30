@@ -1,15 +1,18 @@
 /**
- * Categories.js
+ * DiscountType.js
  *
- * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @description :: Model for handling sales types: discounts, discounts per items, etc
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 
 module.exports = {
-
     attributes: {
         name: {
             type: 'string',
+            required: true
+        },
+        amount: {
+            type: 'integer',
             required: true
         },
         description: {
@@ -18,7 +21,7 @@ module.exports = {
         },
         sales: {
             collection: 'sale',
-            via: 'category'
+            via: 'discount_type'
         }
     }
 };

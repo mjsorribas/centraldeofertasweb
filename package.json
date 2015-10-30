@@ -1,5 +1,5 @@
 {
-  "name": "testProject",
+  "name": "centralDeOfertas",
   "private": true,
   "version": "0.0.0",
   "description": "a Sails application",
@@ -34,5 +34,6 @@
     "url": "git://github.com/joaco/testProject.git"
   },
   "author": "joaco",
-  "license": ""
+  "license": "",
+  "devDependencies": {}
 }

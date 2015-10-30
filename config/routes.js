@@ -32,7 +32,11 @@ module.exports.routes = {
      *                                                                          *
      ***************************************************************************/
 
-    '/': 'DefaultController.index'
+    '/': 'DefaultController.index',
+    'get /login': {
+        'view': 'login'
+    },
+    'post /login': 'DefaultController.login'
 
     /***************************************************************************
      *                                                                          *

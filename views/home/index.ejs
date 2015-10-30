@@ -1,5 +1,20 @@
 <div>
-    <header>
-        <h1>Central de Ofertas</h1>
-    </header>
+    <% if (error) { %>
+        <p>hubo un error</p>
+        <% } %>
+            <header>
+                <h1>Central de Ofertas</h1>
+                <h2>hola</h2>
+            </header>
+            <div>
+                <ul>
+                    <% if (!error) { %>
+                        <% for (var i = 0; i < sales.length; i++) { %>
+                            <li>
+                                <%= sales[i].title %>
+                            </li>
+                            <% } %>
+                                <% } %>
+                </ul>
+            </div>
 </div>

@@ -13,17 +13,21 @@ module.exports = {
             type: 'string',
             required: true
         },
-        type: {
-            model: 'type'
+        discount_type: {
+            model: 'discounttype',
+            required: true
         },
         category: {
-            model: 'category'
+            model: 'category',
+            required: true
         },
         brand: {
-            model: 'brand'
+            model: 'brand',
+            required: true
         },
         chain: {
-            model: 'chain'
+            model: 'chain',
+            required: true
         },
         manufacturer: {
             model: 'manufacturer'
@@ -34,7 +38,7 @@ module.exports = {
             required: true
         },
         value_final: {
-            type: 'float',
+            type: 'float'
         },
         date_from: {
             type: 'datetime',
@@ -45,7 +49,9 @@ module.exports = {
         date_to: {
             type: 'datetime',
             defaultsTo: function () {
-                return new Date().setFullYear(+10);
+                var currentDate = new Date();
+                var newDate = currentDate.setFullYear(currentDate.getFullYear() + 10);
+                return new Date(newDate);
             }
         }
     }
