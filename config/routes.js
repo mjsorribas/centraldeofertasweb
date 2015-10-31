@@ -36,7 +36,7 @@ module.exports.routes = {
     'get /login': {
         'view': 'login'
     },
-    'post /login': 'DefaultController.login'
+    'post /login': 'DefaultController.login',
 
     /***************************************************************************
      *                                                                          *

@@ -23,7 +23,6 @@ module.exports = {
         var user = 'admin';
         var paswd = 'admin';
 
-        console.log('here', req.body);
         if (user == req.body.username && paswd == req.body.password) {
             req.session.authenticated = true;
             return res.redirect('/');

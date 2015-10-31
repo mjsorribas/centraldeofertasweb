@@ -1,5 +1,5 @@
 /**
- * Sales.js
+ * Sale.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
@@ -17,6 +17,13 @@ module.exports = {
             model: 'discounttype',
             required: true
         },
+        value: {
+            type: 'float',
+            required: true
+        },
+        value_final: {
+            type: 'float'
+        },
         category: {
             model: 'category',
             required: true
@@ -30,16 +37,10 @@ module.exports = {
             required: true
         },
         manufacturer: {
-            model: 'manufacturer'
-        },
-        image: 'string',
-        value: {
-            type: 'float',
+            model: 'manufacturer',
             required: true
         },
-        value_final: {
-            type: 'float'
-        },
+        image: 'string',
         date_from: {
             type: 'datetime',
             defaultsTo: function () {

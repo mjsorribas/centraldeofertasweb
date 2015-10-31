@@ -26,11 +26,15 @@ module.exports.policies = {
      *                                                                          *
      ***************************************************************************/
 
-    '*': 'sessionAuth',
+    '*': ['sessionAuth', 'setLayout'],
     DefaultController: {
         '*': false,
         index: true,
         login: true
+    },
+    SaleController: {
+        '*': 'sessionAuth',
+        find: true
     }
 
     /***************************************************************************

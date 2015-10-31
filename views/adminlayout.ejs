@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Central de Ofertas</title>
+    <meta charset="utf-8" />
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/importer.css">
+    <!--STYLES END-->
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand visible-xs" href="#">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Panel de Control</h1>
+            </div>
+        </div>
+        <div class="row">
+            <nav class="col-md-2 col-sm-2 col-xs-12 hidden-xs">
+                <ul class="nav nav-stacked">
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="#">Categorias</a></li>
+                    <li><a href="#">Marcas</a></li>
+                    <li><a href="#">Cadenas</a></li>
+                    <li><a href="#">Fabricantes</a></li>
+                    <li><a href="#">Categorias</a></li>
+                </ul>
+            </nav>
+            <div class="col-md-10 col-sm-10 col-xs-12">
+                <%- body %>
+            </div>
+        </div>
+    </div>
+    <!--TEMPLATES-->
+
+    <!--TEMPLATES END-->
+
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <!--SCRIPTS END-->
+</body>
+
+</html>
