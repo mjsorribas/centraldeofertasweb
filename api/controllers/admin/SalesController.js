@@ -19,17 +19,59 @@ module.exports = {
             });
         });
     },
-    new: function (req, res) {
+    create: function (req, res) {
+        attrs = {
+            discounts: [],
+            categories: [],
+            brands: [],
+            chains: [],
+            manufacturers: []
+        };
         DiscountType.find().exec(function (err, data) {
             if (err)
                 return res.view({
                     error: true,
-                    msg: 'Paso algo malo'
+                    msg: 'Error cargando descuentos'
                 });
-            return res.view({
-                error: false,
-                discounts: data
-            })
+            attrs.discounts = data;
+            Category.find().exec(function (err, data) {
+                if (err)
+                    return res.view({
+                        error: true,
+                        msg: 'Error cargando categorias'
+                    });
+                attrs.categories = data;
+                Brand.find().exec(function (err, data) {
+                    if (err)
+                        return res.view({
+                            error: true,
+                            msg: 'Error cargando marcas'
+                        });
+                    attrs.brands = data;
+                    Chain.find().exec(function (err, data) {
+                        if (err)
+                            return res.view({
+                                error: true,
+                                msg: 'Error cargando cadenas'
+                            });
+                        attrs.chains = data;
+                        Manufacturer.find().exec(function (err, data) {
+                            if (err)
+                                return res.view({
+                                    error: true,
+                                    msg: 'Error cargando fabricantes'
+                                });
+                            attrs.manufacturers = data;
+                            return res.view({
+                                error: false,
+                                data: attrs
+                            });
+                        });
+                    });
+                });
+            });
         });
+
+
     }
 };
