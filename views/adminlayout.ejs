@@ -14,9 +14,9 @@
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+                <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            <![endif]-->
         <script src="/js/jquery.js"></script>
         <!--STYLES-->
         <link rel="stylesheet" href="/styles/bootstrap.min.css">
@@ -25,6 +25,12 @@
         <link rel="stylesheet" href="/styles/plugins/morris.css">
         <link rel="stylesheet" href="/styles/sb-admin.css">
         <!--STYLES END-->
+        <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+
+        <script src="/js/dependencies/sails.io.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+
 
     </head>
 
@@ -155,15 +161,34 @@
                             <a href="/admin"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>Ofertas</a>
-                            <ul id="demo" class="collapse">
-                                <li>
-                                    <a href="#">Dropdown Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Dropdown Item</a>
-                                </li>
-                            </ul>
+                            <a href="/admin/sales"><i class="fa fa-fw fa-tags"></i> Ofertas</a>
+                            <!--<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>Ofertas</a>-->
+                            <!--                            <ul id="demo" class="collapse">
+                                                                <li>
+                                                                    <a href="#">Dropdown Item</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Dropdown Item</a>
+                                                                </li>
+                                                            </ul>-->
+                        </li>
+                        <li>
+                            <a href="/admin/categories"><i class="fa fa-fw fa-list"></i> Categorias</a>
+                        </li>
+                        <li>
+                            <a href="/admin/chains"><i class="fa fa-fw fa-shopping-cart"></i> Cadenas</a>
+                        </li>
+                        <li>
+                            <a href="/admin/brands"><i class="fa fa-fw fa-archive"></i> Marcas</a>
+                        </li>
+                        <li>
+                            <a href="/admin/manufacturers"><i class="fa fa-fw fa-building"></i> Fabricantes</a>
+                        </li>
+                        <li>
+                            <a href="/admin/discounts"><i class="fa fa-fw fa-tag"></i> Descuentos</a>
+                        </li>
+                        <li>
+                            <a href="/admin/users"><i class="fa fa-fw fa-users"></i> Usuarios</a>
                         </li>
                     </ul>
                 </div>
@@ -190,18 +215,17 @@
             <!--TEMPLATES END-->
         </div>
         <!-- /#wrapper -->
-        <script src="/js/dependencies/sails.io.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/utils.js"></script>
         <!--        <script src="/js/plugins/flot/excanvas.min.js"></script>
-                <script src="/js/plugins/flot/flot-data.js"></script>
-                <script src="/js/plugins/flot/jquery.flot.js"></script>
-                <script src="/js/plugins/flot/jquery.flot.pie.js"></script>
-                <script src="/js/plugins/flot/jquery.flot.resize.js"></script>
-                <script src="/js/plugins/flot/jquery.flot.tooltip.min.js"></script>-->
-        <script src="/js/plugins/morris/morris-data.js"></script>
-        <script src="/js/plugins/morris/morris.min.js"></script>
-        <script src="/js/plugins/morris/raphael.min.js"></script>
+                    <script src="/js/plugins/flot/flot-data.js"></script>
+                    <script src="/js/plugins/flot/jquery.flot.js"></script>
+                    <script src="/js/plugins/flot/jquery.flot.pie.js"></script>
+                    <script src="/js/plugins/flot/jquery.flot.resize.js"></script>
+                    <script src="/js/plugins/flot/jquery.flot.tooltip.min.js"></script>-->
+        <!--    <script src="/js/plugins/morris/morris-data.js"></script>
+            <script src="/js/plugins/morris/morris.min.js"></script>
+            <script src="/js/plugins/morris/raphael.min.js"></script>-->
     </body>
 
 </html>
