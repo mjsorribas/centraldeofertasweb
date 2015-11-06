@@ -23,22 +23,16 @@
                     <th>Nombre</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="categoriesCont">
             </tbody>
         </table>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <ul id="categoriesCont">
-        </ul>
     </div>
 </div>
 <script>
     var SailsCollection = Backbone.Collection.extend({
         sailsCollection: "",
         socket: null,
-        sync: function (method, model, options) {
+        sync: function(method, model, options) {
             var where = {};
             if (options.where) {
                 where = {
@@ -47,13 +41,15 @@
             }
             if (typeof this.sailsCollection === "string" && this.sailsCollection !== "") {
                 this.socket = io.connect();
-                this.socket.on("connect", _.bind(function () {
-                    console.log('conected');
-                    io.socket.get("/" + this.sailsCollection, where, _.bind(function (users) {
-                        this.set(users);
+                this.socket.on("connect", _.bind(function() {
+
+                    io.socket.get("/" + this.sailsCollection, where, _.bind(function(categories) {
+                        console.log('c', categories);
+                        this.set(categories);
                     }, this));
 
-                    this.socket.on("message", _.bind(function (msg) {
+                    this.socket.on("message", _.bind(function(msg) {
+                        console.log('mesage', msg);
                         var m = msg.uri.split("/").pop();
                         if (m === "create") {
                             this.add(msg.data);
@@ -97,14 +93,14 @@
     };
     var CategoriesView = Backbone.View.extend({
         el: '#categoriesCont',
-        initialize: function () {
+        initialize: function() {
             this.collection.on('add', this.render, this);
             this.render();
         },
-        template: _.template("<li><p>{{ name }}</p></li>"),
-        render: function () {
+        template: _.template("<tr><td>{{ name }}</td></tr>"),
+        render: function() {
             this.$el.html("");
-            this.collection.each(function (msg) {
+            this.collection.each(function(msg) {
                 this.$el.append(this.template(msg.toJSON()));
             }, this);
         }
