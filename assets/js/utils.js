@@ -1,3 +1,8 @@
+JST.getTemplate = function (name) {
+    return this['.tmp/public/templates/' + name + '.html']();
+};
+
+
 /**
  * Searches the array of objects specifying the key and value. if the value is a string it will return the first occurrency
  * 

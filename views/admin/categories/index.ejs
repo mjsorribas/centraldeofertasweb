@@ -7,10 +7,10 @@
         </h1>
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-dashboard"></i> <a href="index.html"> Dashboard</a>
+                <i class="fa fa-dashboard"></i> <a href="/admin"> Dashboard</a>
             </li>
             <li class="active">
-                <i class="fa fa-file"></i> Categorias
+                <i class="fa fa-list"></i> Categorias
             </li>
         </ol>
     </div>
@@ -21,6 +21,8 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
+                    <th>Descipción</th>
+                    <th class="block">Conf.</th>
                 </tr>
             </thead>
             <tbody id="categoriesCont">
@@ -28,86 +30,3 @@
         </table>
     </div>
 </div>
-<script>
-    var SailsCollection = Backbone.Collection.extend({
-        sailsCollection: "",
-        socket: null,
-        sync: function(method, model, options) {
-            var where = {};
-            if (options.where) {
-                where = {
-                    where: options.where
-                };
-            }
-            if (typeof this.sailsCollection === "string" && this.sailsCollection !== "") {
-                this.socket = io.connect();
-                this.socket.on("connect", _.bind(function() {
-
-                    io.socket.get("/" + this.sailsCollection, where, _.bind(function(categories) {
-                        console.log('c', categories);
-                        this.set(categories);
-                    }, this));
-
-                    this.socket.on("message", _.bind(function(msg) {
-                        console.log('mesage', msg);
-                        var m = msg.uri.split("/").pop();
-                        if (m === "create") {
-                            this.add(msg.data);
-                        } else if (m === "update") {
-                            this.get(msg.data.id).set(msg.data);
-                        } else if (m === "destroy") {
-                            this.remove(this.get(msg.data.id));
-                        }
-                    }, this));
-                }, this));
-            } else {
-                console.log("Error: Cannot retrieve models because property 'sailsCollection' not set on the collection");
-            }
-        }
-    });
-
-    var CategoryModel = Backbone.Model.extend({
-        urlRoot: '/category'
-    });
-
-    var CategoryCollection = SailsCollection.extend({
-        sailsCollection: 'category',
-        model: CategoryModel
-    });
-
-    var categories = new CategoryCollection();
-    categories.fetch();
-
-    /*$("#postMessageButton").click(function() {
-     var messageText = $("#message").val();
-     messages.create({
-     message: messageText
-     }, {
-     wait: true
-     });
-     $("#message").val("");
-     });*/
-
-    _.templateSettings = {
-        interpolate: /\{\{(.+?)\}\}/g
-    };
-    var CategoriesView = Backbone.View.extend({
-        el: '#categoriesCont',
-        initialize: function() {
-            this.collection.on('add', this.render, this);
-            this.render();
-        },
-        template: _.template("<tr><td>{{ name }}</td></tr>"),
-        render: function() {
-            this.$el.html("");
-            this.collection.each(function(msg) {
-                this.$el.append(this.template(msg.toJSON()));
-            }, this);
-        }
-    });
-
-    var cView = new CategoriesView({
-        collection: categories
-    });
-
-</script>
