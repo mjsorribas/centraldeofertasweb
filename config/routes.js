@@ -37,12 +37,7 @@ module.exports.routes = {
         view: 'login'
     },
     'post /login': 'DefaultController.login',
-    'get /admin': {
-        view: 'admin/index',
-        locals: {
-            layout: 'adminlayout'
-        }
-    }
+
     /***************************************************************************
      *                                                                          *
      * Custom routes here...                                                    *

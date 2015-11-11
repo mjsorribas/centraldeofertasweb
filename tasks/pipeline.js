@@ -16,7 +16,11 @@ var tmpPath = '.tmp/public/';
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'styles/**/*.css'
+    'styles/bootstrap.min.css',
+    'styles/font-awesome.min.css',
+  'styles/**/*.css',
+    '!styles/admin/skins/*.css',
+    '!styles/sb-admin.css'
 ];
 
 
@@ -30,9 +34,10 @@ var jsFilesToInject = [
     'js/dependencies/jquery.js',
     'js/dependencies/underscore.js',
 
+
   // Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/**/*.js',
-
+    'js/admin/*.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
   'js/*.js',
