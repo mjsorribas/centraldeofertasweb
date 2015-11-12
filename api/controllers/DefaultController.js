@@ -18,19 +18,5 @@ module.exports = {
                 error: false
             });
         });
-    },
-    login: function (req, res) {
-        var user = 'admin';
-        var paswd = 'admin';
-
-        if (user == req.body.username && paswd == req.body.password) {
-            req.session.authenticated = true;
-            return res.redirect('/');
-        } else {
-            return res.json({
-                error: true,
-                msg: 'User or password incorrect'
-            })
-        }
     }
 };

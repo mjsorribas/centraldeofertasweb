@@ -32,12 +32,12 @@ module.exports.routes = {
      *                                                                          *
      ***************************************************************************/
 
-    '/': 'DefaultController.index',
+    '/': {
+        view: 'homepage'
+    },
     'get /login': {
         view: 'login'
-    },
-    'post /login': 'DefaultController.login',
-
+    }
     /***************************************************************************
      *                                                                          *
      * Custom routes here...                                                    *

@@ -26,15 +26,29 @@ module.exports.policies = {
      *                                                                          *
      ***************************************************************************/
 
-    '*': ['sessionAuth', 'setLayout'],
-    DefaultController: {
-        '*': false,
-        index: true,
-        login: true
+    '*': [
+        'basicAuth',
+        'passport',
+        'sessionAuth',
+        'ModelPolicy',
+        'AuditPolicy',
+        'OwnerPolicy',
+        'PermissionPolicy',
+        'RolePolicy',
+        'CriteriaPolicy'
+    ],
+
+    AuthController: {
+        '*': ['passport']
     },
-    SaleController: {
-        '*': 'sessionAuth',
-        find: true
+    SalesController: {
+        '*': ['setLayout', 'basicAuth', 'sessionAuth']
+    },
+    CategoriesController: {
+        '*': ['setLayout', 'basicAuth', 'sessionAuth']
+    },
+    AdminController: {
+        '*': ['setLayout', 'basicAuth', 'sessionAuth']
     }
 
     /***************************************************************************
