@@ -17,9 +17,9 @@
 <section class="content">
 
     <!-- Your Page Content Here -->
-    <div class="row">
+    <div class="row row-expanded">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo</button>
+            <button type="button" class="btn btn-success btn-flat"><i class="fa fa-plus"></i> Nuevo</button>
             <small> Crear nueva categoria</small>
         </div>
     </div>
@@ -46,10 +46,10 @@
                                 <th>Descripcion</th>
                                 <th>Acciones</th>
                             </tr>
-                            <tbody id="categoriesCont">
-
-                            </tbody>
                         </thead>
+                        <tbody id="categoriesCont">
+
+                        </tbody>
                     </table>
                 </div>
                 <!-- /.box-body -->
@@ -59,3 +59,4 @@
     </div>
 </section>
 <!-- /.content -->
+<% block.scripts = "<script src='/js/admin/pages/categories.js'></script>" %>

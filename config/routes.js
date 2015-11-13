@@ -37,6 +37,9 @@ module.exports.routes = {
     },
     'get /login': {
         view: 'login'
+    },
+    'get /register': {
+        view: 'register'
     }
     /***************************************************************************
      *                                                                          *

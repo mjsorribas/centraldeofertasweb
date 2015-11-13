@@ -1,4 +1,4 @@
-/**
+/*
  * Policy Mappings
  * (sails.config.policies)
  *
@@ -16,9 +16,7 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.policies.html
  */
 
-
 module.exports.policies = {
-
     /***************************************************************************
      *                                                                          *
      * Default policy for all controllers and actions (`true` allows public     *
@@ -37,18 +35,17 @@ module.exports.policies = {
         'RolePolicy',
         'CriteriaPolicy'
     ],
-
     AuthController: {
         '*': ['passport']
     },
-    SalesController: {
-        '*': ['setLayout', 'basicAuth', 'sessionAuth']
-    },
-    CategoriesController: {
-        '*': ['setLayout', 'basicAuth', 'sessionAuth']
-    },
     AdminController: {
-        '*': ['setLayout', 'basicAuth', 'sessionAuth']
+        '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
+    },
+    'admin/SalesController': {
+        '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
+    },
+    'admin/CategoriesController': {
+        '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
     }
 
     /***************************************************************************
