@@ -33,8 +33,22 @@ module.exports.policies = {
         'OwnerPolicy',
         'PermissionPolicy',
         'RolePolicy',
-        'CriteriaPolicy'
+        'CriteriaPolicy',
     ],
+    UserController: {
+        '*': [
+            'basicAuth',
+            'passport',
+            'sessionAuth',
+            'ModelPolicy',
+            'AuditPolicy',
+            'OwnerPolicy',
+            'PermissionPolicy',
+            'RolePolicy',
+            'CriteriaPolicy',
+        ],
+        create: true
+    },
     AuthController: {
         '*': ['passport']
     },

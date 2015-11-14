@@ -57,30 +57,14 @@
                                 <!-- Menu toggle button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-envelope-o"></i>
-                                    <span class="label label-success">4</span>
+                                    <span class="label label-success"><!-- {{0}} unread messages --></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="header">You have 4 messages</li>
+                                    <li class="header"><!--You have {{4}} messages--></li>
                                     <li>
                                         <!-- inner menu: contains the messages -->
                                         <ul class="menu">
-                                            <li>
-                                                <!-- start message -->
-                                                <a href="#">
-                                                    <div class="pull-left">
-                                                        <!-- User Image -->
-                                                        <img src="../images/admin/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                                    </div>
-                                                    <!-- Message title and timestamp -->
-                                                    <h4>
-                                                        Support Team
-                                                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                                    </h4>
-                                                    <!-- The message -->
-                                                    <p>Why not buy a new awesome theme?</p>
-                                                </a>
-                                            </li>
-                                            <!-- end message -->
+                                            <!-- messages loaded from backend -->
                                         </ul>
                                         <!-- /.menu -->
                                     </li>
@@ -94,20 +78,14 @@
                                 <!-- Menu toggle button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-bell-o"></i>
-                                    <span class="label label-warning">10</span>
+                                    <span class="label label-warning"><!-- {{0}} notifications --></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="header">You have 10 notifications</li>
+                                    <li class="header"><!-- You have {{10}} notifications --></li>
                                     <li>
                                         <!-- Inner Menu: contains the notifications -->
                                         <ul class="menu">
-                                            <li>
-                                                <!-- start notification -->
-                                                <a href="#">
-                                                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                                </a>
-                                            </li>
-                                            <!-- end notification -->
+                                            <!-- notification loaded from backend -->
                                         </ul>
                                     </li>
                                     <li class="footer"><a href="#">View all</a></li>
@@ -118,31 +96,14 @@
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-flag-o"></i>
-                                    <span class="label label-danger">9</span>
+                                    <span class="label label-danger"><!-- {{0}} tasks --></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="header">You have 9 tasks</li>
+                                    <li class="header"><!-- You have 9 tasks --></li>
                                     <li>
                                         <!-- Inner menu: contains the tasks -->
                                         <ul class="menu">
-                                            <li>
-                                                <!-- Task item -->
-                                                <a href="#">
-                                                    <!-- Task title and progress text -->
-                                                    <h3>
-                                                        Design some buttons
-                                                        <small class="pull-right">20%</small>
-                                                    </h3>
-                                                    <!-- The progress bar -->
-                                                    <div class="progress xs">
-                                                        <!-- Change the css width attribute to simulate progress -->
-                                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                            <span class="sr-only">20% Complete</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <!-- end task item -->
+                                            <!-- Tasks loaded from backend -->
                                         </ul>
                                     </li>
                                     <li class="footer">
@@ -155,18 +116,17 @@
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
-                                    <img src="../images/admin/user2-160x160.jpg" class="user-image" alt="User Image">
+                                    <img src="<%= JSON.parse(JSON.stringify(user)).gravatarUrl %>?d=retro" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs">Alexander Pierce</span>
+                                    <span class="hidden-xs"><%= user.username %></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="../images/admin/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                                        <img src="<%= JSON.parse(JSON.stringify(user)).gravatarUrl %>?d=retro" class="img-circle" alt="User Image">
                                         <p>
-                                            Alexander Pierce - Web Developer
-                                            <small>Member since Nov. 2012</small>
+                                            <%= user.username %> - <%= user.email %>
+                                            <small>Member since <%= user.createdAt.toLocaleString('es', {year: 'numeric', month: 'short'}) %></small>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
@@ -212,7 +172,7 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="../images/admin/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <img src="<%= JSON.parse(JSON.stringify(user)).gravatarUrl %>?d=retro" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
                             <p><%= user.username %></p>
@@ -237,11 +197,22 @@
                     <ul class="sidebar-menu">
                         <li class="header">Menu</li>
                         <!-- Optionally, you can add icons to the links -->
+                        <!-- Dashboard -->
                         <li id="sidebar_li_admin" class="active"><a href="/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                        <!-- Sales -->
                         <li id="sidebar_li_admin_sales"><a href="/admin/sales"><i class="fa fa-tags"></i> <span>Ofertas</span></a></li>
-                        <li id="sidebar_li_admin_categories"><a href="/admin/categories"><i class="fa fa-tags"></i> <span>Categorias</span></a></li>
-                        <li id="sidebar_li_admin_brands"><a href="/admin/brands"><i class="fa fa-tags"></i> <span>Marcas</span></a></li>
-                        <li id="sidebar_li_admin_chains"><a href="/admin/chains"><i class="fa fa-tags"></i> <span>Cadenas</span></a></li>
+                        <!-- Categories -->
+                        <li id="sidebar_li_admin_categories"><a href="/admin/categories"><i class="fa fa-list"></i> <span>Categorias</span></a></li>
+                        <!-- Chains -->
+                        <li id="sidebar_li_admin_chains"><a href="/admin/chains"><i class="fa fa-shopping-cart"></i> <span>Cadenas</span></a></li>
+                        <!-- Brands -->
+                        <li id="sidebar_li_admin_brands"><a href="/admin/brands"><i class="fa fa-fw fa-archive"></i> <span>Marcas</span></a></li>
+                        <!-- Manufacturers -->
+                        <li id="sidebar_li_admin_manufacturers"><a href="/admin/manufacturers"><i class="fa fa-fw fa-building"></i> <span>Fabricantes</span></a></li>
+                        <!-- Disccounts -->
+                        <li id="sidebar_li_admin_discounts"><a href="/admin/discounts"><i class="fa fa-fw fa-tag"></i> <span>Descuentos</span></a></li>
+                        <!-- Users -->
+                        <li id="sidebar_li_admin_users"><a href="/admin/users"><i class="fa fa-fw fa-users"></i> <span>Usuarios</span></a></li>
                         <!--li class="treeview">
                             <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
