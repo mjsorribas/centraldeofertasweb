@@ -1,0 +1,41 @@
+{
+    "name": "centralDeOfertas",
+    "description": "web application for Central De Ofertas",
+    "main": "app.js",
+    "authors": [
+        "Joaquin Campero <juacocampero@gmail.com>"
+    ],
+    "license": "MIT",
+    "keywords": [
+        "central",
+        "de",
+        "ofertas",
+        "ofertas",
+        "argentina",
+        "minoristas",
+        "retailers",
+        "app",
+        "web",
+        "REST"
+    ],
+    "homepage": "https://github.com/Lt-Mayonesa/centraldeofertasweb",
+    "moduleType": [
+        "globals",
+        "node"
+    ],
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests",
+        "config/local.js"
+    ],
+    "dependencies": {
+        "backbone": "~1.2.3",
+        "backform": "~0.2.0",
+        "sails.io.js": "~0.11.7",
+        "jquery": "~2.1.4"
+    }
+}
