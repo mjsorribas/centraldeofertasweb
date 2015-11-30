@@ -60,6 +60,9 @@ module.exports.policies = {
     },
     'admin/CategoriesController': {
         '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
+    },
+    LocationController: {
+        '*': true
     }
 
     /***************************************************************************

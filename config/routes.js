@@ -40,7 +40,9 @@ module.exports.routes = {
     },
     'get /register': {
         view: 'register'
-    }
+    },
+    'get /api/location/geocode/:address': 'LocationController.address',
+    'get /api/location/reverse/:lat/:long': 'LocationController.reverse'
     /***************************************************************************
      *                                                                          *
      * Custom routes here...                                                    *
