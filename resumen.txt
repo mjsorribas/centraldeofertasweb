@@ -1,0 +1,107 @@
+Central de Ofertas:
+
+El usuario puede rankear ofertas.
+El usuario puede hacer favoritos productos|marca|categoria.
+El usuario puede comprar ofertas.
+-----
+La empresa da de alta productos,
+crea ofertas,
+
+
+----------- (DB) ---------------
+
+ - Ofertas:
+	* descripcion
+	* recomendacion
+	* precio de descuento
+	* cantidad minima unidades
+	* cantidad minima compradores
+	*- Compras (n a m)
+	*- Producto (n a m)
+	* fecha inicio
+	* fecha cierre
+	* fecha de entrega
+	*- Localizacion
+    *- Categoria
+	* foto (mata producto)
+
+ - Categorias:
+    * nombre
+	* descripcion
+
+ - Distrubuidor:
+	*- Localizacion
+	*- Fabricante
+
+
+ - Producto:
+	* nombre
+	* descripcion
+	* precio regular
+	*- Marca
+	*- Fabricante
+	* foto
+
+ - Usuario:
+
+	administrador|empresa|distribuidor|comprador
+
+	* nombre
+	* apellido
+	*- Rubro
+	* telefono
+	* mail
+	*- Localizacion
+	* cuit
+	* Razon social
+
+ - Compra:
+	*- Usuario
+	*- Oferta
+	* fecha
+	* cantidad
+
+- Entrega:
+	*- Compra
+	* realizada
+	*- Distribuidor
+
+ - Ranking:
+	*- Usuario
+	*- Oferta
+	* valor (1-5)
+
+ - Reputacion:
+	*- Padre
+	* discr
+	* valor (1-3)
+
+ - Favorito:
+	*- Usuario
+	*- Padre
+	* Discrimador
+
+ - Localizacion: (a definir)
+	*- Area
+	*- Region
+
+ - Marca:
+	* nombre
+	* descripcion
+	* logo
+
+ - Fabricante:
+	* nombre
+	* descripcion
+	*- Localizacion
+
+ - Comentarios:
+	*- Padre
+	*-
+
+
+- Tips (social):
+
+El usuario va a poder crear tips, ver tips de otros usuarios, ver tips de "Central de Ofertas". Los mismos los va a filtrar por categorias (tipo, producto, novedades, precio). o filtrar por tiempo, por favoritos.
+
+El

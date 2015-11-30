@@ -11,31 +11,14 @@ module.exports = {
             type: 'string',
             required: true
         },
+        description: 'string',
+        usage: 'string',
         discount_type: {
             model: 'discounttype',
             required: true
         },
         value: {
             type: 'float',
-            required: true
-        },
-        value_final: {
-            type: 'float'
-        },
-        category: {
-            model: 'category',
-            required: true
-        },
-        brand: {
-            model: 'brand',
-            required: true
-        },
-        chain: {
-            model: 'chain',
-            required: true
-        },
-        manufacturer: {
-            model: 'manufacturer',
             required: true
         },
         image: 'string',

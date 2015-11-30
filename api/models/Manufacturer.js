@@ -16,9 +16,9 @@ module.exports = {
             type: 'string',
             defaultsTo: 'Sin descripcion'
         },
-        sales: {
+        /*sales: {
             collection: 'sale',
             via: 'manufacturer'
-        }
+        }*/
     }
 };

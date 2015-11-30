@@ -15,10 +15,6 @@ module.exports = {
             type: 'integer',
             required: true
         },
-        description: {
-            type: 'string',
-            defaultsTo: 'Sin descripcion'
-        },
         sales: {
             collection: 'sale',
             via: 'discount_type'

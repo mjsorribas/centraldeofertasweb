@@ -16,9 +16,10 @@ module.exports = {
             type: 'string',
             defaultsTo: 'Sin descripcion'
         },
-        sales: {
+        icon: 'string',
+        /*sales: {
             collection: 'sale',
             via: 'brand'
-        }
+        }*/
     }
 };
