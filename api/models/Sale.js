@@ -13,15 +13,26 @@ module.exports = {
         },
         description: 'string',
         usage: 'string',
-        discount_type: {
-            model: 'discounttype',
-            required: true
+        image: {
+            type: 'string',
+            defaultsTo: null
         },
         value: {
             type: 'float',
             required: true
         },
-        image: 'string',
+        units_needed: {
+            type: 'integer',
+            required: true
+        },
+        buyers_needed: {
+            type: 'integer',
+            required: true
+        },
+        purchases: {
+            collection: 'purchase',
+            via: 'sale'
+        },
         date_from: {
             type: 'datetime',
             defaultsTo: function () {
@@ -35,6 +46,14 @@ module.exports = {
                 var newDate = currentDate.setFullYear(currentDate.getFullYear() + 10);
                 return new Date(newDate);
             }
+        },
+        delivery_date: {
+            type: 'datetime',
+            required: true
+        },
+        rankings: {
+            collection: 'ranking',
+            via: 'sale'
         }
     }
 };

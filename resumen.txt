@@ -22,19 +22,20 @@ crea ofertas,
 	* fecha cierre
 	* fecha de entrega
 	*- Localizacion
-    *- Categoria
+	*- Categoria
 	* foto (mata producto)
 
- - Categorias:
-    * nombre
+/ - Categorias:
+	* nombre
 	* descripcion
 
- - Distrubuidor:
+/***********
+  - Distrubuidor:
 	*- Localizacion
 	*- Fabricante
+**************/
 
-
- - Producto:
+/ - Producto:
 	* nombre
 	* descripcion
 	* precio regular
@@ -55,18 +56,18 @@ crea ofertas,
 	* cuit
 	* Razon social
 
- - Compra:
+/ - Compra:
 	*- Usuario
 	*- Oferta
 	* fecha
 	* cantidad
 
-- Entrega:
+ - Entrega:
 	*- Compra
 	* realizada
 	*- Distribuidor
 
- - Ranking:
+/ - Ranking:
 	*- Usuario
 	*- Oferta
 	* valor (1-5)
@@ -85,12 +86,12 @@ crea ofertas,
 	*- Area
 	*- Region
 
- - Marca:
+/ - Marca:
 	* nombre
 	* descripcion
 	* logo
 
- - Fabricante:
+/ - Fabricante:
 	* nombre
 	* descripcion
 	*- Localizacion
@@ -100,7 +101,7 @@ crea ofertas,
 	*-
 
 
-- Tips (social):
+ - Tips (social):
 
 El usuario va a poder crear tips, ver tips de otros usuarios, ver tips de "Central de Ofertas". Los mismos los va a filtrar por categorias (tipo, producto, novedades, precio). o filtrar por tiempo, por favoritos.
 

@@ -14,10 +14,10 @@ module.exports = {
         amount: {
             type: 'integer',
             required: true
-        },
-        sales: {
+        }
+        /*sales: {
             collection: 'sale',
             via: 'discount_type'
-        }
+        }*/
     }
 };
