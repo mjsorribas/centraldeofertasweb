@@ -1,7 +1,7 @@
 /**
  * Delivery.js
  *
- * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @description :: This entity will be created the day before de delivery of each purchase (sale->deliverDate)
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 

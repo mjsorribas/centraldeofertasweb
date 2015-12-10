@@ -21,32 +21,36 @@ module.exports = {
             type: 'float',
             required: true
         },
-        units_needed: {
+        unitsNeeded: {
             type: 'integer',
             required: true
         },
-        buyers_needed: {
+        buyersNeeded: {
             type: 'integer',
             required: true
         },
+        /**
+         * @manyToOne: Purchase
+         * @type Purchase
+         */
         purchases: {
             collection: 'purchase',
             via: 'sale'
         },
         /**
-         * @Many-to-many: Product
+         * @manyToMany: Product
          */
         products: {
             collection: 'product',
             via: 'sales'
         },
-        date_from: {
+        dateFrom: {
             type: 'datetime',
             defaultsTo: function () {
                 return new Date();
             }
         },
-        date_to: {
+        dateTo: {
             type: 'datetime',
             defaultsTo: function () {
                 var currentDate = new Date();
@@ -54,15 +58,22 @@ module.exports = {
                 return new Date(newDate);
             }
         },
-        delivery_date: {
+        deliveryDate: {
             type: 'datetime',
             required: true
         },
+        /**
+         * @manyToOne: Ranking
+         * @type Ranking
+         */
         rankings: {
             collection: 'ranking',
             via: 'sale'
         },
-        //@Many-to-Many: Location
+        /**
+         * @manyToMany: Ranking
+         * @type Location
+         */
         location: {
             collection: 'location',
             via: 'sales'

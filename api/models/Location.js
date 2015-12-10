@@ -20,24 +20,45 @@ module.exports = {
         streetNumber: 'string',
         streetName: 'string',
         zipcode: 'string',
-        //@Many-to-One: City
+        /**
+         * @ORM({association: 'manyToOne', model: 'City'})
+         * @type City
+         */
         city: {
             model: 'city'
         },
-        //@Many-to-One: State
+        /**
+         * @ORM({association: 'manyToOne', model: 'State'})
+         * @type State
+         */
         state: {
             model: 'state'
         },
-        //@Many-to-One: Country
+        /**
+         * @ORM({association: 'manyToOne', model: 'Country'})
+         * @type Country
+         */
         country: {
             model: 'country'
         },
         /**
-         * @Many-to-Many - Sale  
+         * @ORM({association: 'manyToMany', model: 'Sale'})
+         * @type Sale
          */
         sales: {
             collection: 'sale',
             via: 'location'
+        },
+        /**
+         * @ORM({association: 'manyToMany', model: 'Distributor'})
+         * @type Distributor
+         */
+        distributors: {
+            collection: 'distributor',
+            via: 'deliveryZones'
+        },
+        user: {
+            model: 'user'
         }
     }
 };

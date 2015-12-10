@@ -11,9 +11,21 @@ module.exports = {
             type: 'string',
             required: true
         },
+        /**
+         * @ORM({association: 'oneWay', model: 'Location'})
+         * @type Location
+         */
         location: {
             model: 'location',
             required: 'true'
+        },
+        /**
+         * @ORM({association: 'manyToMany', model: 'Location'})
+         * @type Location
+         */
+        deliveryZones: {
+            collection: 'location',
+            via: 'distributors'
         }
     }
 };

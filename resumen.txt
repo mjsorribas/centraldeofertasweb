@@ -9,7 +9,8 @@ La empresa da de alta productos, crea ofertas,
 
 -------------- (DB) ---------------
 
- - Ofertas:
+ - Ofertas (listo):
+	* titulo
 	* descripcion
 	* recomendacion
 	* precio de descuento
@@ -21,17 +22,19 @@ La empresa da de alta productos, crea ofertas,
 	* fecha cierre
 	* fecha de entrega
 	*- Localizacion
-	*- Categoria
 	* foto (mata producto)
+	*- Ranking
 
 / - Categorias:
 	* nombre
 	* descripcion
 
 /*************
-  - Distrubuidor:
+  - Distrubuidor (listo):
+	*- nombre
 	*- Localizacion
 	*- Fabricante
+	*- zonas de entrega
 **************/
 
 / - Producto:
@@ -40,9 +43,10 @@ La empresa da de alta productos, crea ofertas,
 	* precio regular
 	*- Marca
 	*- Fabricante
+	*- Categoria
 	* foto
 
- - Usuario:
+ - Usuario (listo):
 
 	administrador|empresa|distribuidor|comprador
 
@@ -55,33 +59,33 @@ La empresa da de alta productos, crea ofertas,
 	* cuit
 	* Razon social
 
-/ - Compra:
+/ - Compra (listo):
 	*- Usuario
 	*- Oferta
 	* fecha
 	* cantidad
 
- - Entrega:
+ - Entrega (listo):
 	*- Compra
 	* realizada
 	*- Distribuidor
 
-/ - Ranking:
+/ - Ranking (listo):
 	*- Usuario
 	*- Oferta
 	* valor (1-5)
 
- - Reputacion:
+ - Reputacion (lsito?=):
 	*- Padre
 	* discr
 	* valor (1-3)
 
- - Favorito:
+ - Favorito (listo, falta custom populate):
 	*- Usuario
 	*- Padre
 	* Discrimador
 
- - Localizacion: (a definir)
+ - Localizacion: (listo)
 	*- Area
 	*- Region
 
