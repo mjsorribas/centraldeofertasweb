@@ -28,6 +28,13 @@ module.exports = {
         manufacturer: {
             model: 'manufacturer',
             required: true
+        },
+        /**
+         * @Many-to-many: Product
+         */
+        sales: {
+            collection: 'sale',
+            via: 'products'
         }
     }
 };

@@ -4,17 +4,16 @@ El usuario puede rankear ofertas.
 El usuario puede hacer favoritos productos|marca|categoria.
 El usuario puede comprar ofertas.
 -----
-La empresa da de alta productos,
-crea ofertas,
+La empresa da de alta productos, crea ofertas,
 
 
------------ (DB) ---------------
+-------------- (DB) ---------------
 
  - Ofertas:
 	* descripcion
 	* recomendacion
 	* precio de descuento
-	* cantidad minima unidades
+	* cantidad minim----a unidades
 	* cantidad minima compradores
 	*- Compras (n a m)
 	*- Producto (n a m)
@@ -29,7 +28,7 @@ crea ofertas,
 	* nombre
 	* descripcion
 
-/***********
+/*************
   - Distrubuidor:
 	*- Localizacion
 	*- Fabricante

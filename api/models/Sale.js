@@ -33,6 +33,13 @@ module.exports = {
             collection: 'purchase',
             via: 'sale'
         },
+        /**
+         * @Many-to-many: Product
+         */
+        products: {
+            collection: 'product',
+            via: 'sales'
+        },
         date_from: {
             type: 'datetime',
             defaultsTo: function () {
@@ -54,6 +61,11 @@ module.exports = {
         rankings: {
             collection: 'ranking',
             via: 'sale'
+        },
+        //@Many-to-Many: Location
+        location: {
+            collection: 'location',
+            via: 'sales'
         }
     }
 };

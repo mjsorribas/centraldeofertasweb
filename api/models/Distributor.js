@@ -12,7 +12,8 @@ module.exports = {
             required: true
         },
         location: {
-            //TODO: definier asociacion
+            model: 'location',
+            required: 'true'
         }
     }
 };
