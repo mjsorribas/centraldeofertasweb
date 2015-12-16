@@ -16,7 +16,9 @@ module.exports = {
             type: 'string',
             defaultsTo: 'Sin descripcion'
         },
-        icon: 'string',
+        icon: {
+            type: 'string'
+        },
         /**
          * @manyToOne: Product
          * @type Product

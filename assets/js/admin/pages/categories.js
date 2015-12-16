@@ -87,6 +87,30 @@ var columns = [
         name: "description",
         label: "Descripción",
         cell: "string"
+    },
+    {
+        name: 'icon',
+        label: 'Icono',
+        cell: Backgrid.Cell.extend({
+            /*editor: Backbone.View.extend({
+                events: {
+                    'click': 'onClick'
+                },
+                onClick: function () {
+                    console.log(this);
+                }
+            }),*/
+            events: {
+                'click': 'onClick'
+            },
+            render: function() {
+                this.$el.html('<img src="' + this.model.attributes.icon + '"/>');
+                return this;
+            },
+            onClick: function () {
+                console.log(this)
+            }
+        })
     }
 ];
 var CategoryPageable = SailsCollection.extend({
@@ -122,6 +146,7 @@ var clientSideFilter = new Backgrid.Extension.ClientSideFilter({
     wait: 150
 });
 
+// set search and filter input box
 $("#grid").prepend(clientSideFilter.render().el);
 $('#categories_table_search').keyup(function () {
     var value = this.value;
@@ -130,51 +155,46 @@ $('#categories_table_search').keyup(function () {
     clientSideFilter.search();
 });
 
-
+// add table and pagination buttons to html
 $("#grid").append(grid.render().$el);
 $("#paginator").append(paginator.render().$el);
 
+// get categories list from server
 categories.fetch();
 
-
-/*var CategoryCollection = SailsCollection.extend({
-    sailsCollection: 'category',
-    model: CategoryModel
-});
-
-var categories = new CategoryCollection();
-categories.fetch();
-
-/*$("#postMessageButton").click(function() {
- var messageText = $("#message").val();
- messages.create({
- message: messageText
- }, {
- wait: true
- });
- $("#message").val("");
- });*/
-
-/*_.templateSettings = {
-    interpolate: /\{\{(.+?)\}\}/g
-};
-var CategoriesView = Backbone.View.extend({
-    el: '#categoriesCont',
-    initialize: function () {
-        this.collection.on('add', this.render, this);
-        this.collection.on('change', this.render, this);
-        this.collection.on('remove', this.render, this);
-        this.render();
-    },
-    template: _.template(JST.getTemplate('categories-table')),
-    render: function () {
-        this.$el.html("");
-        this.collection.each(function (msg) {
-            this.$el.append(this.template(msg.toJSON()));
-        }, this);
+// handle create form submit
+$('form.create-form').submit(function () {
+    var formData = new FormData($(this)[0]);
+    console.log(formData);
+    //return false;
+    var $formData = $(this).serializeArray();
+    var modelData = {};
+    for (var i = 0; i < $formData.length; i ++) {
+        modelData[$formData[i].name] = $formData[i].value;
     }
+    $.ajax({
+        url: '/admin/categories/upload/',
+        type: 'POST',
+        data: formData,
+        beforeSend: function () {
+            console.log('mandando');
+        },
+        success: function (res) {
+            if (res.error) {
+                console.error(res.message);
+            } else {
+                console.log(res.message);
+                /*categories.create(modelData, {
+                    wait: true
+                });*/
+            }
+        },
+        error: function () {
+            console.error()
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+    return false;
 });
-
-var cView = new CategoriesView({
-    collection: categories
-});*/

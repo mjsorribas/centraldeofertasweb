@@ -1,7 +1,7 @@
 {
   "name": "centralDeOfertas",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
@@ -28,14 +28,18 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "deploy": "gcloud preview app deploy app.yaml"
   },
   "main": "app.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/joaco/testProject.git"
   },
-  "author": "joaco",
+  "author": "Joaquin Campero",
   "license": "",
-  "devDependencies": {}
+  "devDependencies": {},
+    "engines": {
+    "node": "~4.2"
+  }
 }
