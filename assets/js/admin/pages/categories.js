@@ -71,6 +71,12 @@ var CategoryModel = Backbone.Model.extend({
 /** **/
 var columns = [
     {
+        // enable the select-all extension
+        name: "",
+        cell: "select-row",
+        headerCell: "select-all"
+    },
+    {
         name: "id",
         label: "Id",
         editable: false,
@@ -104,11 +110,11 @@ var columns = [
                 'click': 'onClick'
             },
             render: function() {
-                this.$el.html('<img src="' + this.model.attributes.icon + '"/>');
+                this.$el.html('<img width="24" src="../images/category_icons/' + this.model.attributes.icon + '"/>');
                 return this;
             },
             onClick: function () {
-                console.log(this)
+                console.log(this);
             }
         })
     }
@@ -124,6 +130,23 @@ var CategoryPageable = SailsCollection.extend({
 });
 
 var categories = new CategoryPageable();
+
+Backgrid.Grid.prototype.deleteModels = function () {
+    var models = this.getSelectedModels();
+    if (models.length <= 0) {
+        alert('No models where selected');
+        return false;
+    } else {
+        var r = confirm('Seguro que desea eliminar los elementos seleccionados?');
+        if (r) {
+            for (var i = 0; i < models.length; i++) {
+                models[i].destroy();
+            }
+        } else {
+            return false;
+        }
+    }
+};
 
 var grid = new Backgrid.Grid({
     columns: columns,
@@ -165,7 +188,7 @@ categories.fetch();
 // handle create form submit
 $('form.create-form').submit(function () {
     var formData = new FormData($(this)[0]);
-    console.log(formData);
+    console.log($(this));
     //return false;
     var $formData = $(this).serializeArray();
     var modelData = {};
@@ -173,7 +196,7 @@ $('form.create-form').submit(function () {
         modelData[$formData[i].name] = $formData[i].value;
     }
     $.ajax({
-        url: '/admin/categories/upload/',
+        url: '/admin/categories/upload',
         type: 'POST',
         data: formData,
         beforeSend: function () {
@@ -183,10 +206,11 @@ $('form.create-form').submit(function () {
             if (res.error) {
                 console.error(res.message);
             } else {
-                console.log(res.message);
-                /*categories.create(modelData, {
+                console.log(res);
+                modelData.icon = res.fileName;
+                categories.create(modelData, {
                     wait: true
-                });*/
+                });
             }
         },
         error: function () {
@@ -198,3 +222,10 @@ $('form.create-form').submit(function () {
     });
     return false;
 });
+
+function cleanForm (form) {
+    var inputs = $(form).find('input');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = '';
+    }
+}

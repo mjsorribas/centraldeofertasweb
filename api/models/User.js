@@ -7,7 +7,7 @@ var _super = require('sails-permissions/api/models/User');
 _.merge(exports, _super);
 _.merge(exports, {
     // Extend with custom logic here by adding additional fields, methods, etc.
-    atributes: {
+    attributes: {
         firstName: {
             type: 'string',
             required: true
@@ -17,7 +17,7 @@ _.merge(exports, {
             required: true
         },
         workType: {
-            model: 'workType',
+            model: 'worktype',
             required: true
         },
         phone: {
