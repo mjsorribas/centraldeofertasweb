@@ -38,12 +38,12 @@ module.exports.connections = {
      * Run: npm install sails-mysql                                             *
      *                                                                          *
      ***************************************************************************/
-    centralDeOfertasServer: {
+    localhost: {
         adapter: 'sails-mysql',
-        host: 'centraldeofertas.com.ar',
-        user: 'centrald_root',
-        password: 'smashing4',
-        database: 'centrald_ofertas'
+        host: 'localhost',
+        user: 'root',
+        password: '1234567890',
+        database: 'central-de-ofertas'
     },
     centralDB: {
         adapter: 'sails-mysql',
