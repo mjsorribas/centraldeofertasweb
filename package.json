@@ -1,8 +1,8 @@
 {
   "name": "centralDeOfertas",
   "private": true,
-  "version": "0.0.3",
-  "description": "a Sails application",
+  "version": "0.0.1",
+  "description": "a backend application for retailers in argentina",
   "keywords": [],
   "dependencies": {
     "ejs": "~0.8.4",
@@ -25,6 +25,7 @@
     "sails": "~0.11.2",
     "sails-auth": "^1.3.1",
     "sails-disk": "~0.10.0",
+    "sails-mysql": "^0.11.2",
     "sails-permissions": "^1.4.2",
     "sails-service-location": "^3.2.0"
   },
@@ -36,7 +37,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/joaco/testProject.git"
+    "url": "git://github.com/Lt-Mayonesa/centraldeofertasweb"
   },
   "author": "Joaquin Campero",
   "license": "",

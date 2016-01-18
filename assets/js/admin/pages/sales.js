@@ -33,8 +33,8 @@ var SailsCollection = Backbone.PageableCollection.extend({
     }
 });
 
-var CategoryModel = Backbone.Model.extend({
-    urlRoot: '/category',
+var SaleModel = Backbone.Model.extend({
+    urlRoot: '/sale',
     initialize: function () {
         Backbone.Model.prototype.initialize.apply(this, arguments);
         //this.bind("change", this.saveModel, this);
@@ -85,44 +85,80 @@ var columns = [
         })
     },
     {
-        name: "name",
-        label: "Nombre",
-        cell: "string",
+        name: 'title',
+        label: 'Titulo',
+        cell: 'string'
     },
     {
-        name: "description",
-        label: "Descripción",
-        cell: "string"
+        name: 'description',
+        label: 'Descripcion',
+        cell: 'string'
     },
     {
-        name: 'icon',
-        label: 'Icono',
-        cell: Backgrid.Cell.extend({
-            /*editor: Backbone.View.extend({
-                events: {
-                    'click': 'onClick'
-                },
-                onClick: function () {
-                    console.log(this);
-                }
-            }),*/
-            events: {
-                'click': 'onClick'
-            },
-            render: function() {
-                this.$el.html('<img width="24" src="../images/category_icons/' + this.model.attributes.icon + '"/>');
-                return this;
-            },
-            onClick: function () {
-                console.log(this);
-            }
-        })
+        name: 'usage',
+        label: 'Uso',
+        cell: 'string'
+    },
+    {
+        name: 'description',
+        label: 'Descripcion',
+        cell: 'string'
     }
+    /*image: {
+            type: 'string',
+            defaultsTo: null
+        },
+        value: {
+            type: 'float',
+            required: true
+        },
+        unitsNeeded: {
+            type: 'integer',
+            required: true
+        },
+        buyersNeeded: {
+            type: 'integer',
+            required: true
+        },
+        purchases: {
+            collection: 'purchase',
+            via: 'sale'
+        },
+        products: {
+            collection: 'product',
+            via: 'sales'
+        },
+        dateFrom: {
+            type: 'datetime',
+            defaultsTo: function () {
+                return new Date();
+            }
+        },
+        dateTo: {
+            type: 'datetime',
+            defaultsTo: function () {
+                var currentDate = new Date();
+                var newDate = currentDate.setFullYear(currentDate.getFullYear() + 10);
+                return new Date(newDate);
+            }
+        },
+        deliveryDate: {
+            type: 'datetime',
+            required: true
+        },
+        rankings: {
+            collection: 'ranking',
+            via: 'sale'
+        },
+        location: {
+            collection: 'location',
+            via: 'sales'
+        },*/
 ];
 var CategoryPageable = SailsCollection.extend({
     url: "/category",
     mode: "client",
-    model: CategoryModel,
+    model: SaleModel,
     sailsCollection: 'category',
     state: {
         pageSize: 5
