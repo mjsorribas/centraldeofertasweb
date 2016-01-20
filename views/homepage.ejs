@@ -16,6 +16,8 @@ setTimeout(function sunrise () {
         <h3 class="container">You're looking at: <code><%= view.pathFromApp + '.' +view.ext %></code></h3>
     </div>
     <div class="main container clearfix">
-        <p><%= JSON.stringify(sails.config, null, 8) %></p>
+        <p>Environment: <%= (sails.config.environment) %></p>
+        <p>Models: <%= JSON.stringify(sails.config.models) %></p>
+        <p>Port: <%= sails.config.port %></p>
     </div>
 </div>

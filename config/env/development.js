@@ -20,5 +20,5 @@ module.exports = {
         connection: 'localDiskDb',
         migrate: 'alter'
     }
-
+    
 };

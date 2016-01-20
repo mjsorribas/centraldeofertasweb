@@ -45,6 +45,14 @@ module.exports.connections = {
         password: '1234567890',
         database: 'central-de-ofertas'
     },
+    awsDB: {
+        adapter: 'sails-mysql',
+        host: 'cdodb.cxp2laicrkvu.sa-east-1.rds.amazonaws.com',
+        user: 'cdoadmin',
+        password: 'cEntrAlAdmIn',
+        database: 'cdo_db_prod',
+        port: 3306
+    },
     centralDB: {
         adapter: 'sails-mysql',
         host: '173.194.235.188',
