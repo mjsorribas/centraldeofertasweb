@@ -10,27 +10,27 @@ _.merge(exports, {
     attributes: {
         firstName: {
             type: 'string',
-            required: true
+//            required: true
         },
         lastName: {
             type: 'string',
-            required: true
+//            required: true
         },
         workType: {
             model: 'worktype',
-            required: true
+//            required: true
         },
         phone: {
             type: 'string',
-            required: true
+//            required: true
         },
         cuit: {
             type: 'string',
-            required: true
+//            required: true
         },
         businessName: {
             type: 'string',
-            required: true
+//            required: true
         },
         /**
          * @ORM({association: 'oneToOne', model: 'Location'})
