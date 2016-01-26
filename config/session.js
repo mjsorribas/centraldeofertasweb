@@ -41,7 +41,7 @@ module.exports.session = {
   * session store that can be shared across multiple Sails.js servers        *
   ***************************************************************************/
 
-   adapter: 'redis',
+//   adapter: 'redis',
 
   /***************************************************************************
   *                                                                          *
@@ -52,8 +52,8 @@ module.exports.session = {
   *                                                                          *
   ***************************************************************************/
 
-   host: 'repgroupcdo-001.by3ueg.0001.sae1.cache.amazonaws.com',
-   port: 6379,
+//   host: 'repgroupcdo-001.by3ueg.0001.sae1.cache.amazonaws.com',
+//   port: 6379,
 //   ttl: 2,
 //   db: 0001,
 //   pass: 'cEnt@l',
