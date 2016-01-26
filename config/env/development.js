@@ -16,9 +16,14 @@ module.exports = {
      * environment (see config/connections.js and config/models.js )           *
      ***************************************************************************/
     port: 1337,
+//    models: {
+//        connection: 'localDiskDb',
+//        migrate: 'alter'
+//    }
     models: {
-        connection: 'localDiskDb',
-        migrate: 'alter'
-    }
+        connection: 'awsDB',
+        migrate: 'safe'
+    },
+    hookTimeout: 120000,
     
 };
