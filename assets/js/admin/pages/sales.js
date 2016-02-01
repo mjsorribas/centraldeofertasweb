@@ -34,6 +34,7 @@ var SailsCollection = Backbone.PageableCollection.extend({
 });
 
 var SaleModel = Backbone.Model.extend({
+    /*** Change this  ***/
     urlRoot: '/sale',
     initialize: function () {
         Backbone.Model.prototype.initialize.apply(this, arguments);
@@ -49,7 +50,8 @@ var SaleModel = Backbone.Model.extend({
         //console.log('Editing', this);
     },
     edited: function (model, options, command) {
-        if (command.which == 27 || command.which == 0) return false;
+        if (command.which == 27 || command.which == 0)
+            return false;
         /** TODO: check actual change in model **/
         this.saveModel();
     },
@@ -68,7 +70,11 @@ var SaleModel = Backbone.Model.extend({
 });
 
 
-/** **/
+/** COLUMNS **/
+/*
+ * This are the colums to be displayed in the grid, the will probably be the same as the Model's Attributes
+ * 
+ */
 var columns = [
     {
         // enable the select-all extension
@@ -100,72 +106,78 @@ var columns = [
         cell: 'string'
     },
     {
-        name: 'description',
-        label: 'Descripcion',
+        name: 'image',
+        label: 'Imagen',
+        cell: Backgrid.Cell.extend({
+            /*editor: Backbone.View.extend({
+             events: {
+             'click': 'onClick'
+             },
+             onClick: function () {
+             console.log(this);
+             }
+             }),*/
+            events: {
+                'click': 'onClick'
+            },
+            render: function () {
+                this.$el.html('<img width="32" src="../images/sales/' + this.model.attributes.image + '"/>');
+                return this;
+            },
+            onClick: function () {
+                console.log(this);
+            }
+        })
+    },
+    {
+        name: 'value',
+        label: 'Valor',
         cell: 'string'
+    },
+    {
+        name: 'unitsNeeded',
+        label: 'Unidades Necesarias',
+        cell: 'string'
+    },
+    {
+        name: 'buyersNeeded',
+        label: 'Compradores Necesarios',
+        cell: 'string'
+    },
+    {
+        name: 'products',
+        label: 'Productos',
+        cell: 'string'
+    },
+    {
+        name: 'dateFrom',
+        label: 'Desde',
+        cell: 'datetime'
+    },
+    {
+        name: 'dateTo',
+        label: 'Hasta',
+        cell: 'datetime'
+    },
+    {
+        name: 'deliveryDate',
+        label: 'Entrega',
+        cell: 'datetime'
     }
-    /*image: {
-            type: 'string',
-            defaultsTo: null
-        },
-        value: {
-            type: 'float',
-            required: true
-        },
-        unitsNeeded: {
-            type: 'integer',
-            required: true
-        },
-        buyersNeeded: {
-            type: 'integer',
-            required: true
-        },
-        purchases: {
-            collection: 'purchase',
-            via: 'sale'
-        },
-        products: {
-            collection: 'product',
-            via: 'sales'
-        },
-        dateFrom: {
-            type: 'datetime',
-            defaultsTo: function () {
-                return new Date();
-            }
-        },
-        dateTo: {
-            type: 'datetime',
-            defaultsTo: function () {
-                var currentDate = new Date();
-                var newDate = currentDate.setFullYear(currentDate.getFullYear() + 10);
-                return new Date(newDate);
-            }
-        },
-        deliveryDate: {
-            type: 'datetime',
-            required: true
-        },
-        rankings: {
-            collection: 'ranking',
-            via: 'sale'
-        },
-        location: {
-            collection: 'location',
-            via: 'sales'
-        },*/
 ];
 var CategoryPageable = SailsCollection.extend({
-    url: "/category",
+    /*** Change 'url' to model's route  ***/
+    url: "/sale",
     mode: "client",
     model: SaleModel,
-    sailsCollection: 'category',
+    /*** Change 'sailsCollection' to model's name  ***/
+    sailsCollection: 'sale',
     state: {
         pageSize: 5
     }
 });
 
-var categories = new CategoryPageable();
+var pageableCollection = new CategoryPageable();
 
 Backgrid.Grid.prototype.deleteModels = function () {
     var models = this.getSelectedModels();
@@ -186,17 +198,17 @@ Backgrid.Grid.prototype.deleteModels = function () {
 
 var grid = new Backgrid.Grid({
     columns: columns,
-    collection: categories,
+    collection: pageableCollection,
     className: 'table table-striped table-hover'
 });
 
 var paginator = new Backgrid.Extension.Paginator({
-    collection: categories,
+    collection: pageableCollection,
     className: 'pagination-holder'
 });
 
 var clientSideFilter = new Backgrid.Extension.ClientSideFilter({
-    collection: categories,
+    collection: pageableCollection,
     className: 'hidden',
     placeholder: "id, name, description",
     // The model fields to search for matches
@@ -219,49 +231,65 @@ $("#grid").append(grid.render().$el);
 $("#paginator").append(paginator.render().$el);
 
 // get categories list from server
-categories.fetch();
+pageableCollection.fetch();
 
-// handle create form submit
-$('form.create-form').submit(function () {
-    var formData = new FormData($(this)[0]);
-    console.log($(this));
-    //return false;
-    var $formData = $(this).serializeArray();
-    var modelData = {};
-    for (var i = 0; i < $formData.length; i ++) {
-        modelData[$formData[i].name] = $formData[i].value;
-    }
-    $.ajax({
-        url: '/admin/categories/upload',
-        type: 'POST',
-        data: formData,
-        beforeSend: function () {
-            console.log('mandando');
-        },
-        success: function (res) {
-            if (res.error) {
-                console.error(res.message);
-            } else {
-                console.log(res);
-                modelData.icon = res.fileName;
-                categories.create(modelData, {
-                    wait: true
-                });
-            }
-        },
-        error: function () {
-            console.error()
-        },
-        cache: false,
-        contentType: false,
-        processData: false
-    });
-    return false;
-});
-
-function cleanForm (form) {
+function cleanForm(form) {
     var inputs = $(form).find('input');
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].value = '';
     }
 }
+var newModel = new SaleModel();
+var form = new Backform.Form({
+    el: '#create_form',
+    model: newModel,
+    fields: [
+        {name: 'title', label: 'Titulo', control: 'input', placeholder: 'ej: Oreo 2x1', required: true},
+        {name: 'description', label: 'Descripcion', control: 'input', required: true},
+        {name: 'usage', label: 'Uso', control: 'input'},
+        {name: 'image', label: 'Imagen', control: 'input', type: 'file', required: true, maxlength: false},
+        {name: 'value', label: 'Valor', control: 'input', type: 'number', required: true},
+        {name: 'unitsNeeded', label: 'Unidades Necesarias', control: 'input', type: 'number', required: true},
+        {name: 'buyersNeeded', label: 'Compradores Necesarios', control: 'input', type: 'number', required: true},
+        {name: 'dateFrom', label: 'Desde', control: 'datepicker', options: {format: 'yyyy-mm-dd'}},
+        {name: 'dateTo', label: 'Hasta', control: 'datepicker', options: {format: 'yyyy-mm-dd'}},
+        {name: 'deliveryDate', label: 'Entrega', control: 'datepicker', options: {format: 'yyyy-mm-dd'}, required: true},
+        {name: 'products', label: 'Productos', control: 'select', options: [
+                {label: 'elegí producto', value: ''}
+            ]
+        },
+        {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
+    ],
+    events: {
+        'submit': function (e) {
+            var self = this;
+            e.preventDefault();
+            var formData = new FormData($('#create_form')[0]);
+            $.ajax({
+                url: '/admin/sales/upload',
+                type: 'POST',
+                data: formData,
+                beforeSend: function (data) {
+                },
+                success: function (res) {
+                    if (res.error) {
+                        console.error(res.message);
+                    } else {
+                        self.model.set('image', res.fileName);
+                        self.model.save().done(function (result) {
+                            newModel = new SaleModel();
+                            cleanForm(this.el);
+                        });
+                    }
+                },
+                error: function () {
+                    console.error();
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+            return false;
+        }
+    }
+}).render();

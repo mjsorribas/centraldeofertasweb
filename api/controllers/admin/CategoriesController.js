@@ -25,36 +25,9 @@ module.exports = {
         res.view();
     },
     upload: function (req, res) {
-        var fileName = req.param('name').toLowerCase().replace(' ', '_');
-        var fileType = fileExtension(req.file('icon')._files[0].stream.filename);
-        console.log(fileName + '.' + fileType);
-        var isFile = false;
-        var index;
-        
-        try {
-            console.log('ising file', UPLOAD_PATH + fileName + '.' + fileType);
-            isFile = fs.statSync(UPLOAD_PATH + fileName + '.' + fileType).isFile();
-            console.log('is file: ', isFile);
-            index = 0;
-            while (isFile) {
-                try {
-                    isFile = fs.statSync(UPLOAD_PATH + fileName + '_' + index + fileType).isFile();
-                } catch (er) {
-                    isFile = false;
-                    break;
-                }
-                index++;
-            }
-        } catch (er) {
-            console.warn(fileName + '.' + fileType + ' not found');
-        }
-
-        console.log(fileName, index, fileType);
         req.file('icon').upload({
             dirname: UPLOAD_PATH,
-            saveAs: index >= 0 ? fileName + '_' + index + '.' + fileType : fileName + '.' + fileType
         }, function (err, files) {
-            console.log(files);
             if (err) return res.json({
                 error: true,
                 message: err
@@ -62,9 +35,9 @@ module.exports = {
 
             return res.json({
                 error: false,
-                fileName: fileName + '.' + fileType,
+                fileName: (files[0].fd).split('/').slice(-1),//fileName + '.' + fileType,
                 message: files.length + ' file(s) were uploaded'
             });
-        })
+        });
     }
 };

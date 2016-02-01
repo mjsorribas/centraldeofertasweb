@@ -4,18 +4,31 @@
     <head>
         <title>Central de Ofertas</title>
         <meta charset="utf-8" />
-        <!-- Viewport mobile tag for sensible mobile support -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="Central de Ofertas es una app mobile que te permite sumarte a ofertas exclusivas directa de los fabricantes. Sumate a la primera comunidad de comercios minoristas de latinoamerica!">
+        <meta property="og:title" content="Central De Ofertas">
+        <meta property="og:url" content="http://centraldeofertas.com.ar">
+        <meta property="og:image" content="http://centraldeofertas.com.ar/images/logo.jpg">
+        <meta property="og:description" content="Central de Ofertas es una app mobile que te permite sumarte a ofertas exclusivas directa de los fabricantes. Sumate a la primera comunidad de comercios minoristas de latinoamerica!">
+        <!-- Viewport mobile tag for sensible mobile support -->
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic' rel='stylesheet' type='text/css'>
+        <!--STYLES-->
+        <link rel="stylesheet" href="/styles/bootstrap.min.css">
+        <link rel="stylesheet" href="/styles/font-awesome.min.css">
         <link rel="stylesheet" href="/styles/importer.css">
+        <!--STYLES END-->
+        <link rel="stylesheet" href="styles/landing/style.css">
+        <link rel="stylesheet" href="styles/landing/animate.css">
     </head>
 
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid <%- block.maincontainercustomclass %>">
             <%- body %>
         </div>
         <!--TEMPLATES-->
-        
+        <script type="text/javascript" src="/jst.js"></script>
         <!--TEMPLATES END-->
 
         <!--SCRIPTS-->
@@ -30,6 +43,7 @@
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/utils.js"></script>
         <!--SCRIPTS END-->
+        <%- block.scripts %>
     </body>
 
 </html>

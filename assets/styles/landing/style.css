@@ -1,0 +1,352 @@
+@charset "UTF-8";
+
+/* CSS Document */
+body {
+    font-family: "PT Sans", sans-serif;
+}
+.opl {
+    position:fixed;
+    top:50px;
+    right:0px;
+    z-index:99999;
+}
+.opl a {
+    width:73px;
+    height:56px;
+    text-indent:-9999px;
+    display: block;
+    background:url('https://s3.amazonaws.com/onepagelove/one-page-love-award-right.png') no-repeat;
+}
+
+h1, h2, h3, h4, a{
+    color: black;
+    text-decoration: none;
+}
+.header-title{
+    color: black;
+    font-weight: bold;
+    margin: 40px 0;
+}
+
+.main-title {
+    color: white;
+    text-shadow: 1px 1px 1px #333;
+}
+
+.extra-big-text{
+    font-size: 90px;
+}
+
+.content-wrapper{
+    background: #f3c300;
+    display: table;
+    width: 100%;
+    padding: 50px 0;
+}
+
+.content-wrapper img{
+    margin: 0 auto;
+}
+
+.header-copy{
+    padding: 100px 0 50px 0;
+}
+
+.header-copy h1{
+    font-size: 4em;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.email-field{
+    border: solid black 2px;
+    border-radius: 0px;
+    padding: 30px;
+    margin: 0;
+    width: 100%;
+    background: transparent;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.email-field-btn{
+    border: solid black 2px;
+    background: black;
+    border-radius: 0px;
+    margin: 0;
+    min-width: 100%;
+    height: 64px;
+    color: white;
+    font-weight: bold;
+    -o-transition:.3s;
+    -ms-transition:.3s;
+    -moz-transition:.3s;
+    -webkit-transition:.3s;
+}
+
+.email-field-btn:hover{
+    border: solid black 2px;
+    background: black;
+    color: #886aea;
+}
+
+.email-field::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #999;
+}
+.email-field:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #999;
+   opacity:  1;
+}
+.email-field::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #999;
+   opacity:  1;
+}
+.email-field:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #999;
+}
+
+.div-spacing{
+    padding: 20px 70px;
+}
+.div-spacing img {
+    margin-top: 15px;
+}
+
+.numberCircle {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.lightCircle{
+    margin: 20px 10px;
+    background: #f3c300;
+    color: #000;
+}
+
+.darkCircle{
+    margin: 0 auto;
+    background: black;
+    color: #fee3d9;
+}
+
+.nav-div{
+    margin-right: 0;
+}
+
+.nav-div h4 {
+    display: inline-block;
+    font-size: 24px;
+    margin: 0;
+    padding: 50px 0px 5px 0px;
+    background-color: rgba(255,255,255,0.7);
+}
+
+.nav-div a {
+    color: black;
+    padding: 15px 20px;
+}
+
+.nav-div a:hover {
+    /*background: rgba(255,255,255,0.2);*/
+    padding: 15px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 2px solid gold;
+}
+
+.nav-div a:focus {
+    text-decoration: none;
+}
+
+#footer-div{
+    padding: 80px 0;
+    color: #666;
+}
+
+#footer-div a{
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 0 10px;
+}
+
+#footer-div h4{
+    display: inline-block;
+}
+
+
+
+#email_add::-webkit-input-placeholder
+{
+    color:    black;
+}
+
+#email_add:focus:-webkit-input-placeholder
+{
+    color:    #CDCDCD;
+}
+
+#email_add:-moz-placeholder
+{
+    color:    black;
+}
+
+#email_add:focus:-moz-placeholder
+{
+    color:    #CDCDCD;
+}
+
+#email_add::-moz-placeholder
+{
+    color:    black;
+}
+
+#email_add:focus::-moz-placeholder
+{
+    color:    #CDCDCD;
+}
+
+#email_add:-ms-input-placeholder
+{
+    color:    black;
+}
+
+#email_add:focus:-ms-input-placeholder
+{
+    color:    #CDCDCD;
+}
+
+.indicates-required {
+    border-bottom: 1px solid #333;
+    font-size: 11px;
+    color: tomato;
+    padding: 5px 0px;
+}
+
+#header-div{
+    position: relative;
+    background-color: white;
+    overflow: hidden;
+}
+
+.header-background {
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 105%;
+    height: 105%;
+    background: url(../../images/background.jpg) no-repeat center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+.header-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.3);
+}
+
+.header-button {
+    color: white;
+    display: block;
+    margin: 5px;
+    float: left;
+    width: 120px;
+    border: 1px solid white;
+    background-color: rgba(0,0,0,0);
+    padding: 8px 10px;
+    text-align: center;
+    -webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px / 5px;
+    border-radius: 5px / 5px;
+    font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
+}
+.header-button:hover {
+    color: white;
+    background-color: #886aea;
+    border-color: #886aea;
+    text-decoration: none;
+}
+.img-responsive {
+    max-height: 560px;
+}
+.hideme
+{
+    opacity:0;
+}
+
+@media (max-width:850px){
+    .header-copy{
+        padding: 0 0 50px 0;
+    }
+}
+
+@media (max-width:768px){
+    body{
+        text-align: center;
+    }
+
+    .header-background {
+        background-position: 52%;
+    }
+
+    .header-copy h1{
+        font-size: 2em;
+    }
+
+    .extra-big-text{
+        font-size: 60px;
+    }
+
+    .header-copy{
+        padding: 10px 0 50px 0;
+    }
+
+    .div-spacing{
+        padding: 0 30px;
+    }
+    .div-spacing-b {
+        padding: 0 15px;
+    }
+
+    .lightCircle {
+        margin: 0 auto;
+    }
+
+    .nav-div{
+        width: 0;
+        height:0;
+        overflow: hidden;
+    }
+
+    #header-div{
+        /*        background: #f3c300;	*/
+    }
+
+    .header-button {
+        width: 60%;
+        margin: 0 auto;
+        float: none;
+    }
+
+}

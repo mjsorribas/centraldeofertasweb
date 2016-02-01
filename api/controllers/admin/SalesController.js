@@ -5,73 +5,48 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var fs = require('fs');
+var UPLOAD_PATH = '../../assets/images/sales/';
+
+function fileExtension(fileName) {
+    return fileName.split('.').slice(-1);
+}
+
+function safeFilename(name) {
+    name = name.replace(/ /g, '-');
+    name = name.replace(/[^A-Za-z0-9-_\.]/g, '');
+    name = name.replace(/\.+/g, '.');
+    name = name.replace(/-+/g, '-');
+    name = name.replace(/_+/g, '_');
+    return name;
+}
+
 module.exports = {
     index: function (req, res) {
-        Sale.find().populateAll().exec(function (err, data) {
-            if (err)
-                return res.view({
-                    sales: null,
-                    error: true
-                });
-            return res.view({
-                sales: data,
-                error: false
-            });
-        });
+        res.view();
     },
-    create: function (req, res) {
-        attrs = {
-            discounts: [],
-            categories: [],
-            brands: [],
-            chains: [],
-            manufacturers: []
-        };
-        DiscountType.find().exec(function (err, data) {
+    upload: function (req, res) {
+        req.file('image').upload({
+            dirname: UPLOAD_PATH
+        }, function (err, files) {
+            console.log(files);
             if (err)
-                return res.view({
+                return res.json({
                     error: true,
-                    msg: 'Error cargando descuentos'
+                    message: err
                 });
-            attrs.discounts = data;
-            Category.find().exec(function (err, data) {
-                if (err)
-                    return res.view({
-                        error: true,
-                        msg: 'Error cargando categorias'
-                    });
-                attrs.categories = data;
-                Brand.find().exec(function (err, data) {
-                    if (err)
-                        return res.view({
-                            error: true,
-                            msg: 'Error cargando marcas'
-                        });
-                    attrs.brands = data;
-                    Chain.find().exec(function (err, data) {
-                        if (err)
-                            return res.view({
-                                error: true,
-                                msg: 'Error cargando cadenas'
-                            });
-                        attrs.chains = data;
-                        Manufacturer.find().exec(function (err, data) {
-                            if (err)
-                                return res.view({
-                                    error: true,
-                                    msg: 'Error cargando fabricantes'
-                                });
-                            attrs.manufacturers = data;
-                            return res.view({
-                                error: false,
-                                data: attrs
-                            });
-                        });
-                    });
+            
+            if (files.length === 0) {
+                return res.json({
+                    error: true,
+                    message: 'No file was uploaded'
                 });
+            }
+            return res.json({
+                error: false,
+                fileName: (files[0].fd).split('/').slice(-1), //fileName + '.' + fileType,
+                message: files.length + ' file(s) were uploaded'
             });
         });
-
-
     }
 };

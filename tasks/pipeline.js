@@ -18,7 +18,7 @@ var tmpPath = '.tmp/public/';
 var cssFilesToInject = [
     'styles/bootstrap.min.css',
     'styles/font-awesome.min.css',
-    'styles/**/*.css',
+    'styles/*.css',
     '!styles/admin/skins/*.css',
     '!styles/sb-admin.css'
 ];

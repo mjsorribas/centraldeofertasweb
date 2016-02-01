@@ -30,14 +30,6 @@ module.exports = {
             required: true
         },
         /**
-         * @manyToOne: Purchase
-         * @type Purchase
-         */
-        purchases: {
-            collection: 'purchase',
-            via: 'sale'
-        },
-        /**
          * @manyToMany: Product
          */
         products: {
@@ -61,6 +53,14 @@ module.exports = {
         deliveryDate: {
             type: 'datetime',
             required: true
+        },
+        /**
+         * @manyToOne: Purchase
+         * @type Purchase
+         */
+        purchases: {
+            collection: 'purchase',
+            via: 'sale'
         },
         /**
          * @manyToOne: Ranking

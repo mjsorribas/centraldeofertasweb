@@ -10,11 +10,13 @@
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/font-awesome.min.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <!--STYLES END-->
     <link rel="stylesheet" href="/styles/admin/AdminLTE.css">
     <link rel="stylesheet" href="/styles/admin/AdminLTE.min.css">
-    <link rel="stylesheet" href="/styles/importer.css">
     <link rel="stylesheet" href="/styles/plugins/morris.css">
-    <!--STYLES END-->
+    <link rel="stylesheet" href="/styles/plugins/datepicker.css"/>
+    <%- block.styles %>
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
             page. However, you can choose any other skin. Make sure you
             apply the skin class to the body tag so the changes take effect.
@@ -329,7 +331,7 @@
     <!-- ./wrapper -->
 
     <!--TEMPLATES-->
-    
+    <script type="text/javascript" src="/jst.js"></script>
     <!--TEMPLATES END-->
 
     <!--SCRIPTS-->
@@ -349,6 +351,7 @@
     <script src="/js/extensions/paginator/backgrid-paginator.js"></script>
     <script src="/js/extensions/filter/backgrid-filter.js"></script>
     <script src="/js/extensions/select-all/backgrid-select-all.js"></script>
+    <script src="/js/plugins/bootstrap-datepicker.js"></script>
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
          user experience. Slimscroll is required when using the

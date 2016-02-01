@@ -1,23 +1,281 @@
-<!-- Default home page -->
-<link type="text/css" href='http://sailsjs.org/styles/fonts.css' rel='stylesheet'/>
-<style>
-    /* Styles included inline since you'll probably be deleting this page anyway */
-    html,body{text-align:left;font-size:1em}html,body,img,form,textarea,input,fieldset,div,p,div,ul,li,ol,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,code{margin:0;padding:0}ul,li{list-style:none}img{display:block}a img{border:0}a{text-decoration:none;font-weight:normal;font-family:inherit}*:active,*:focus{outline:0;-moz-outline-style:none}h1,h2,h3,h4,h5,h6{font-weight:normal}div.clear{clear:both}.clearfix:after{clear:both;content:".";display:block;font-size:0;height:0;line-height:0;visibility:hidden}body{font-family:"Open Sans",Arial,sans-serif;font-weight:300;}.top-bar {width: 100%; background-color: #e4f0f1; padding: 15px 0;}.top-bar .container img {float: left;}.top-bar .container ul {float: right; padding-top: 25px;}.top-bar .container li {float: left; width: 125px; text-align: center; font-size: 15px; color:#000; font-weight: 600;}.top-bar .container a li:hover {color: #118798; -webkit-transition:color 200ms; -moz-transition:color 200ms; -o-transition:color 200ms;transition:color 200ms;}.container{width: 80%; max-width: 1200px; margin: auto;}div.header {-webkit-transition: 6s; -moz-transition: 6s; -o-transition: 6s;transition: 6s; background: rgba(4, 36, 41, 0.89) url(http://sailsjs.org/images/img_sailsShadow.png) no-repeat 42% bottom; padding: 100px 0 65px;}.header h1#main-title{color: #fff; font-weight: 300; font-size: 2.5em;}.header h3{color: #b1eef7; font-style: italic; font-weight: 300;}.header h3 code{font-style: normal!important; background-color: rgba(255,255,255,0.5); font-weight: 300; color:#0e6471; margin: 0px 5px;}div.main.container{padding: 50px 0;}h1 {color: #118798; font-weight: 300;}code {font-size: inherit; font-family: 'Consolas', 'Monaco', monospace; padding:4px 5px 1px; background-color: #f3f5f7}a{color: #118798; font-weight: 300; text-decoration: underline;}a:hover {color: #0e6471; -webkit-transition:color 200ms; -moz-transition:color 200ms; -o-transition:color 200ms;transition:color 200ms;}p{line-height: 1.5em;}blockquote{background-color: #e4f0f1; padding: 25px; line-height: 1.5em; margin: 15px 0;}blockquote span{font-weight: 600; padding-right: 5px;}ul.getting-started{padding: 25px 75px 25px 0; width: 70%; float: left; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}ul.getting-started li{padding: 25px 0;}ul.getting-started li h3 {padding-bottom: 10px; font-size: 25px; font-weight: 300;}.sprite{background:url(http://sailsjs.org/images/newapp.sprite.png) no-repeat; position: absolute; left: 0; top:0;}.getting-started .sprite{margin-left:10px;padding-left:60px;height:42px;width:0; float: left;}.getting-started .one{background-position:0 0}.getting-started .two{background-position:0 -42px}.getting-started .three{background-position:0 -83px}div.step {position: relative; padding-left: 70px; opacity: 0.9;}div.step:hover{ opacity: 1;}div.links {float: left; width: 30%; max-width: 325px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; background-color: #f3f5f7; border: 1px solid #ebebeb; padding: 25px 45px 35px;}div.links h3 {color: #727272; text-align: center; font-size: 28px; font-weight: 300;}div.links h4 {color: #727272; font-size: 17px; font-weight: 600; padding: 15px 0 10px;}div.links .link-list a {text-decoration: none; font-weight: 400;}div.links .link-list a li {padding: 0px 0px 5px 10px;}div.default-page{min-width: 1200px;}.pocket{display:none;}
-</style>
-<script type="text/javascript">
-setTimeout(function sunrise () {
-    document.getElementsByClassName('header')[0].style.backgroundColor = '#118798';
-}, 0);
-</script>
+<% block.maincontainercustomclass = "no-padding" %>
+<div id="header-div" class="content-wrapper" style="padding-top: 0px;">
+    <div class="header-background"></div>
+    <!--<div class="header-background-overlay"></div>-->
+    <div class="container-fluid">
+        <div class="row">
 
-<div class="default-page">
-    <div class="header">
-        <h1 id="main-title" class="container"><%= __('Central de Ofertas.') %></h1>
-        <h3 class="container">You're looking at: <code><%= view.pathFromApp + '.' +view.ext %></code></h3>
+            <div class="col-sm-3 col-xs-12 text-centerd div-spacing">
+                <a href="index.html"><img src="./images/logo.png" width="120" alt="central de ofertas logo"></a>
+                <br>
+                <br>
+            </div>
+
+            <div class="col-sm-9  text-right col-xs-12 nav-div div-spacing" style="padding: 0px 70px;">
+                <h4><a href="#howitworks" onclick="ScrollTo()">Cómo funciona</a></h4>
+                <h4><a href="#payout" onclick="ScrollTo()">Misión</a></h4>
+                <h4><a href="#info" onclick="ScrollTo()">Info</a></h4>
+            </div>
+
+            <div class="col-sm-7 col-xs-12 pull-right">
+                <div class="header-copy">
+                    <h1 class="header-title main-title">La primer comunidad de Comerciantes minoristas de latinoamérica.</h1>
+                    <a href="https://play.google.com/store/apps/details?id=ar.com.centraldeofertas.app" target="_blank" class="header-button">Android</a>
+                </div>
+                <!-- /. header-copy -->
+            </div>
+
+            <div class="col-sm-5 col-xs-12">
+                <img src="./images/header.png" class="img-responsive" alt="captura de pantalla de la aplicacion" />
+            </div>
+        </div>
+        <!-- /. row -->
     </div>
-    <div class="main container clearfix">
-        <p>Environment: <%= (sails.config.environment) %></p>
-        <p>Models: <%= JSON.stringify(sails.config.models) %></p>
-        <p>Port: <%= sails.config.port %></p>
+    <!-- /.container-fluid" -->
+</div>
+<!-- /. content-wrapper 1 -->
+
+
+
+
+<div id="howitworks" class="content-wrapper" style="background:#f9f9f9;">
+    <div class="container-fluid">
+        <div class="col-sm-12 text-center">
+            <h1 class="header-title">Como funciona</h1>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6 div-spacing">
+                <div class="row wow fadeIn slideInLeft" data-wow-delay=" 0.5s " style="visibility: hidden; animation-name: none;">
+                    <div class="col-sm-2 ">
+                        <div class="numberCircle lightCircle">1</div>
+                    </div>
+
+                    <div class="col-sm-10 ">
+                        <h2 style="display:inline-block">Descubrí las publicaciones directas de  fabricantes</h2>
+                        <p class="lead">Busca las oportunidades que los fabricantes tienen para ofrecerte, directamente a tu comercio.</p>
+                        <br>
+                    </div>
+                </div>
+
+
+                <div class="row wow fadeIn slideInLeft" data-wow-delay=" 0.5s " style="visibility: hidden; animation-name: none;">
+                    <div class="col-sm-2">
+                        <div class="numberCircle lightCircle">2</div>
+                    </div>
+                    <div class="col-sm-10">
+                        <h2>Sumate</h2>
+                        <p class="lead">Ponete en contacto con las que te interesen.</p>
+                        <br>
+                    </div>
+                </div>
+
+
+                <div class="row wow fadeIn slideInLeft" data-wow-delay=" 0.5s " style="visibility: hidden; animation-name: none;">
+                    <div class="col-sm-2">
+                        <div class="numberCircle lightCircle">3</div>
+                    </div>
+                    <div class="col-sm-10">
+                        <h2>Mejorá tu negocio</h2>
+                        <p class="lead">Si se alcanza a la cantidad mínima de adheridos a la oferta, nos contactaremos para coordinar la entrega de la oferta.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 wow slideInRight" style="visibility: hidden; animation-name: none;">
+                <img src="./images/img1.png" class="img-responsive" alt="app screenshots">
+            </div>
+        </div>
+        <!-- /. row -->
+    </div>
+    <!-- /.container-fluid" -->
+</div>
+<!-- /. content-wrapper 2 -->
+
+
+<div id="payout" class="content-wrapper" style="background-color: #fee3d9">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 div-spacing">
+                <h1 class="header-title">Sabemos lo difícil que es hoy mantener tu negocio y tratar con los grandes.</h1>
+                <h1 class="header-title extra-big-text">Queremos cambiar las reglas de juego.</h1>
+                <p class="lead">Creemos en la igualdad de oportunidades y en las ventajas de una comunidad.</p>
+                <p class="lead">Sumate para hacer crecer tu negocio.</p>
+                <br>
+                <div class="row text-center">
+                    <div class="col-sm-4 wow fadeIn" style="visibility: hidden; animation-name: none;">
+                        <div class="numberCircle darkCircle">1</div>
+                        <h2>Agrupate con tu pares.</h2>
+                        <!--p class="lead">Todos para uno y uno para todos.</p-->
+                        <br>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" style="visibility: hidden; animation-name: none;">
+                        <div class="numberCircle darkCircle">2</div>
+                        <h2>Generá volumen de compra.</h2>
+                        <!--p class="lead">To answer the questions companies want</p-->
+                        <br>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" style="visibility: hidden; animation-name: none;">
+                        <div class="numberCircle darkCircle">3</div>
+                        <h2>Comprá directo de fabricantes.</h2>
+                        <!--p class="lead">Win-win solution for both of us, of course we earn more than you, duh.</p-->
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /. row -->
+    </div>
+    <!-- /.container-fluid" -->
+</div>
+<!-- /. content-wrapper 3 -->
+
+<div id="info" class="content-wrapper" style="background:#f9f9f9;">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-sm-12 text-center">
+                <h1 class="header-title">Las oportunidades no siempre son de los demás, ahora están también en tu celular.</h1>
+            </div>
+            <div class="col-sm-6 div-spacing-b wow fadeIn" style="visibility: hidden; animation-name: none;">
+                <div class="col-sm-2 col-xs-12">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAABEdJREFUeJztncFtWzEQRMfpQVXkFCAFsAn3s00kRSSXHFIAm0gTSRHMwWbAU7Rfn1/c5cwDCPtgcSny7VAWBPsF+WmL678srn+KD6sXINYiAciRAORIAHIkADkSgBwJQI4EIEcCkCMByJEA5EgAciQAORKAHAlAjgQgRwKQIwHIkQDkSAByJAA5EoAcCUCOBCBHApAjAciRAORIAHIkADkSgBwJQI4EIEcCkCMByJEA5EgAciQAORKAHAlAzmwBCt7+bt//xo/JNXfiJ+7vX1m1OA8V95/Ap8k179W7eszks6NenVxzGgVrun8nAYDEKVDx/O6Ho2Y2AVKmQMGa7oejbjYBgIQpULGm++Gom1GAVClQsK774aidUQAgUQpUrOt+OGpnFSBFChSc735zzLHrsDt7Ez4FKu4v0NP95phnt2GOfQmdAuXOwhqO3f3mmG+XYQf2JWwKVMfCjt795pgz+7CDexIyBYpjUY++8jfH3FmHPbgn4VKgOhZ05pW/OebPNuzEfoRKgeJYzIzf+81RJ8uwCfsRJgWqYyGzfu83R63owybtRYgUKI5FzH7Xzxw1ow6bvBfLU6A6FnDFu37mqBtt2AX7sDQFiqP4le/5m6N+lGGX7MAby1KgOgpf+Z4/kEMCu+i5d5akQHEUfdZn/cyxll0Pv/P0FKiOgld3/4g51rPr4QNPToHiKLbik77mWNeOh995WgpUR6Fndv+IOda24+EDT0qB4iiy+nP+Br7D71yeAtVRYFX3jxj4Dh+4OAWKY/LV3T9i4Dr8zmUpUB0TR+j+EQPX4QMXpUBxTBqp+0cMPIffmZ4C1TFhtO4fMfAcPjA5BYpjsqjdP2LgOPzOtBSojokid/+IgePwgUkpUByTZOj+EcP+h985nQLVMUGW7h8x7H/4wMkUKI4HZ+v+EcPeh995OAWq44EZu3/EsPfhAw+mQHE8KHP3jxj2PfzO4RSojgdk7/4Rw76HDxxMgeL44V26f8Sw5+F33ClQHT+4U/ePGPY8fOBACnhfGV81Xq95/il4xfr9X76A3wBuJzcyIze8PffV+798AQ3At3N7mZLvWL/vYQRo4LoKIkR/OAFYroIo0R9OgAaOqyBK9IcUoGHvqyBS9IcVYNerIFr0hxWgYc+rIFr0hxagYa+rIGL0hxdgl6sgavSHF6Bhj6sgavSnEKAh91UQOfrTCJD1Koge/WkEaMh5FUSP/lQCNOS6CjJEfzoBslwFWaK/AWiZ/nPoDcCX1Ytw8BU5RP3HcgsPjshXQabobwDay/s3mfgD4OP710jcAPxCsu7PdAV0ol4F6aK/szyGHhyRroJ00d9HxiugE+UqSBn9nYxXQCfKVZA2+gEgcwKICWROADEBCUCOBCBHApAjAciRAORIAHIkADkSgBwJQI4EIEcCkCMByJEA5EgAciQAORKAHAlAjgQgRwKQIwHIkQDkSABy/gKOpmQL0vlSHwAAAABJRU5ErkJggg==" width="35" alt="something">
+                </div>
+                <div class="col-sm-10 col-xs-12">
+                    <p class="lead">Bajate la app e ingresá para ver las ofertás exclusivas directas de fabricantes.</p>
+                    <br>
+                </div>
+            </div>
+
+            <div class="col-sm-6 div-spacing-b wow fadeIn" style="visibility: hidden; animation-name: none;">
+                <div class="col-sm-2 col-xs-12">
+                    <img src="data:image/png;base64,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" width="50" alt="icono">
+                </div>
+                <div class="col-sm-10 col-xs-12">
+                    <p class="lead">Sumate en aquellas que te interesan y mejorá la rentabilidad de tu negocio.</p>
+                    <br>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+<div class="content-wrapper" style="border-top: 2px dashed #111; background-color: #fff;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 div-spacing text-center">
+                <p class="lead wow fadeIn" style="visibility: hidden; animation-name: none;">Que estas esperando? Dejanos tu mail y nos pondremos en contacto!</p>
+                <h1 class="header-title wow fadeIn" style="visibility: hidden; animation-name: none;">La mejor manera de hacer mejores negocios...</h1>
+            </div>
+            <div class="col-sm-12  ">
+                <!--form method="post">
+                        <div class="input-group col-sm-6" style="margin: 0 auto;">
+                            <input type="email" class="form-control email-field" placeholder="EMAIL" name="email_add" id="email_add">
+                            <span class="input-group-btn">
+                <!--button type="submit" class="btn btn-default email-field-btn" onclick="ga( & #39; send & #39; , & #39; event & #39; , { eventCategory: & #39; signup & #39; , eventAction: & #39; signup & #39; , eventLabel: & #39; earlyaccess & #39; });">EARLY ACCESS</button-->
+                <!--button type="submit" class="btn btn-default email-field-btn">SUBSCRIBIRSE</button>
+                            </span>
+                        </div>
+                    </form-->
+                <form action="//centraldeofertas.us11.list-manage.com/subscribe/post?u=1409b4ea9ada5f4944978c7ac&amp;id=8b1269c687" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" style="margin: 0 auto; text-align: center;" onsubmit="return validateForm(this);">
+                    <div id="mc_embed_signup_scroll" class="input-group col-sm-6" style="margin: 0 auto;">
+                        <input type="email" value="" placeholder="ejemplo@mail.com" name="EMAIL" class="required email form-control email-field" id="mce-EMAIL" required>
+                        <div id="email_required" class="indicates-required"><span class="asterisk"></span>Este campo es obligatorio</div>
+                        <input type="text" value="" placeholder="NOMBRE" name="FNAME" class="form-control email-field" id="mce-FNAME" style="margin: 5px 0px;">
+                        <input type="text" value="" placeholder="APELLIDO" name="LNAME" class="form-control email-field" id="mce-LNAME" style="margin: 5px 0px;">
+                        <input type="text" value="" placeholder="RUBRO" name="RUBRO" class="form-control email-field" id="mce-RUBRO" style="margin: 5px 0px;">
+                        <div id="mce-responses" class="clear">
+                            <div class="response" id="mce-error-response" style="display:none"></div>
+                            <div class="response" id="mce-success-response" style="display:none"></div>
+                        </div>
+                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                        <div style="position: absolute; left: -5000px;">
+                            <input type="text" name="b_1409b4ea9ada5f4944978c7ac_8b1269c687" tabindex="-1" value="">
+                        </div>
+                        <div class="clear">
+                            <p style="color: #666">Suscribite a nuestro newsletter.</p>
+                            <input type="submit" value="ENVIAR" name="subscribe" id="mc-embedded-subscribe" class="btn btn-default email-field-btn">
+                        </div>
+                    </div>
+                </form>
+                <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+                <script type='text/javascript'>
+                    function validateForm(form) {
+                        var email = form['EMAIL'].value;
+                        if (email == null || email == "") {
+                            document.getElementById('email_required').style.visibility = 'visible';
+                            document.getElementById('email_required').innerHTML = 'Este campo es obligatorio';
+                            return false;
+                        } else if (email.indexOf("@") == -1) {
+                            email
+                            console.log('asdf');
+                            document.getElementById('email_required').style.visibility = 'visible';
+                            document.getElementById('email_required').innerHTML = 'Debe ser un email valido';
+                            return false;
+                        }
+                        return true;
+                    }
+                    (function ($) {
+                        window.fnames = new Array();
+                        window.ftypes = new Array();
+                        fnames[0] = 'EMAIL';
+                        ftypes[0] = 'email';
+                        fnames[1] = 'FNAME';
+                        ftypes[1] = 'text';
+                        fnames[2] = 'LNAME';
+                        ftypes[2] = 'text';
+                        fnames[3] = 'RUBRO';
+                        ftypes[3] = 'text';
+                        /*
+                         * Translated default messages for the $ validation plugin.
+                         * Locale: ES
+                         */
+                        $.extend($.validator.messages, {
+                            required: "Este campo es obligatorio.",
+                            remote: "Por favor, rellena este campo.",
+                            email: "Por favor, escribe una dirección de correo válida",
+                            url: "Por favor, escribe una URL válida.",
+                            date: "Por favor, escribe una fecha válida.",
+                            dateISO: "Por favor, escribe una fecha (ISO) válida.",
+                            number: "Por favor, escribe un número entero válido.",
+                            digits: "Por favor, escribe sólo dígitos.",
+                            creditcard: "Por favor, escribe un número de tarjeta válido.",
+                            equalTo: "Por favor, escribe el mismo valor de nuevo.",
+                            accept: "Por favor, escribe un valor con una extensión aceptada.",
+                            maxlength: $.validator.format("Por favor, no escribas más de {0} caracteres."),
+                            minlength: $.validator.format("Por favor, no escribas menos de {0} caracteres."),
+                            rangelength: $.validator.format("Por favor, escribe un valor entre {0} y {1} caracteres."),
+                            range: $.validator.format("Por favor, escribe un valor entre {0} y {1}."),
+                            max: $.validator.format("Por favor, escribe un valor menor o igual a {0}."),
+                            min: $.validator.format("Por favor, escribe un valor mayor o igual a {0}.")
+                        });
+                    }(jQuery));
+                    var $mcj = jQuery.noConflict(true);
+                </script>
+                <!--End mc_embed_signup-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- footer -->
+<div id="footer-div" class="content-wrapper" style="background:black;">
+    <div class="container-fluid">
+        <div class="row text-center">
+
+            <div class="col-sm-12 text-center wow bounceIn" style="visibility: hidden; animation-name: none;">
+                <img src="./images/logo_small.png" width="60" alt="central de ofertas logo">
+                <br>
+                <br>
+            </div>
+            <!--<h4><a href="https://www.facebook.com/centraldeofertas">FACEBOOK</a></h4> /-->
+            <h4><a href="mailto:mailcentraldeofertas@gmail.com">CONTACTO</a></h4>
+        </div>
+    </div>
+</div>
+<!-- /.footer -->
+<script src="js/custom/wow.js"></script>
+
+<% block.scripts = "<script>new WOW().init();function init() {var $root = $('html, body');$('h4 a').click(function () {$root.animate({scrollTop: $($(this).attr('href')).offset().top}, 500);return false;});}function ScrollTo() {var $root = $('html, body');$('h4 a').click(function () {$root.animate({scrollTop: $($(this).attr('href')).offset().top}, 500);return false;});}$('html, body').bind('scroll mousedown DOMMouseScroll mousewheel keyup', function () {$('html, body').stop();});$(document).ready(function(){init();})</script>"%>
