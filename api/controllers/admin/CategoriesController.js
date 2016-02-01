@@ -4,8 +4,8 @@
  * @description :: Server-side logic for managing admin categories CRUD
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-var fs = require('fs');
-var UPLOAD_PATH = '../../assets/images/category_icons/';
+var fs = require('fs.extra');
+var DIR_STRUCTURE = 'images/category_icons/';
 
 function fileExtension(fileName) {
     return fileName.split('.').slice(-1);
@@ -24,18 +24,39 @@ module.exports = {
     index: function (req, res) {
         res.view();
     },
+    test: function (req, res) {
+        return res.json({
+            path: sails.config.uploadPath
+        });
+    },
     upload: function (req, res) {
         req.file('icon').upload({
-            dirname: UPLOAD_PATH,
+            dirname: '../public/' + DIR_STRUCTURE
         }, function (err, files) {
-            if (err) return res.json({
-                error: true,
-                message: err
+            if (err)
+                return res.json({
+                    error: true,
+                    message: err
+                });
+            if (files.length === 0) {
+                return res.json({
+                    error: true,
+                    message: 'No file was uploaded'
+                });
+            }
+            //Copy the file to the store folder
+            fs.copyRecursive(files[0].fd, sails.config.uploadPath + DIR_STRUCTURE, function (err) {
+                if (err) {
+                    return res.json({
+                        error: true,
+                        message: err
+                    });
+                }
             });
 
             return res.json({
                 error: false,
-                fileName: (files[0].fd).split('/').slice(-1),//fileName + '.' + fileType,
+                fileName: (files[0].fd).split('/').slice(-1), //fileName + '.' + fileType,
                 message: files.length + ' file(s) were uploaded'
             });
         });

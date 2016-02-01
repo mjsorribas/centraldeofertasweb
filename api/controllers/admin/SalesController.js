@@ -6,7 +6,7 @@
  */
 
 var fs = require('fs');
-var UPLOAD_PATH = '../../assets/images/sales/';
+var DIR_STRUCTURE = 'images/sales/';
 
 function fileExtension(fileName) {
     return fileName.split('.').slice(-1);
@@ -27,7 +27,7 @@ module.exports = {
     },
     upload: function (req, res) {
         req.file('image').upload({
-            dirname: UPLOAD_PATH
+            dirname: '../public/' + DIR_STRUCTURE
         }, function (err, files) {
             console.log(files);
             if (err)
@@ -42,6 +42,15 @@ module.exports = {
                     message: 'No file was uploaded'
                 });
             }
+            //Copy the file to the store folder
+            fs.copyRecursive(files[0].fd, sails.config.uploadPath + DIR_STRUCTURE, function (err) {
+                if (err) {
+                    return res.json({
+                        error: true,
+                        message: err
+                    });
+                }
+            });
             return res.json({
                 error: false,
                 fileName: (files[0].fd).split('/').slice(-1), //fileName + '.' + fileType,
