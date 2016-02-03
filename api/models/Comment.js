@@ -11,6 +11,10 @@ module.exports = {
             model: 'user',
             required: true
         },
+        text: {
+            type: 'string',
+            required: true
+        },
         parentId: {
             type: 'integer',
             required: true

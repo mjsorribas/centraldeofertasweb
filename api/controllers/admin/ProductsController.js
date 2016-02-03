@@ -1,12 +1,12 @@
 /**
- * SalesController
+ * ProductsController
  *
- * @description :: Server-side logic for managing admin sales SUD
+ * @description :: Server-side logic for managing admin products CRUD
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
 var fs = require('fs.extra');
-var DIR_STRUCTURE = 'images/sales/';
+var DIR_STRUCTURE = 'images/products/';
 
 function fileExtension(fileName) {
     return fileName.split('.').slice(-1);

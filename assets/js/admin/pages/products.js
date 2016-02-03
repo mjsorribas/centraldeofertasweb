@@ -10,13 +10,13 @@ var PageSettings = {
      * Name of model (singular)
      * @type String
      */
-    model: 'category',
-    controller: 'categories',
+    model: 'product',
+    controller: 'products',
     /**
      * Identifier by wich the search input will search in the grid
      * @type Array
      */
-    searchFields: ['name', 'description'],
+    searchFields: ['title', 'description'],
     /**
      * This are the columns to be displayed in the grid, they will probably be the same as the Model's Attributes
      * @type Array
@@ -37,18 +37,38 @@ var PageSettings = {
             })
         },
         {
-            name: "name",
-            label: "Nombre",
-            cell: "string",
+            name: 'name',
+            label: 'Nombre',
+            cell: 'string'
         },
         {
-            name: "description",
-            label: "Descripción",
-            cell: "string"
+            name: 'description',
+            label: 'Descripcion',
+            cell: 'string'
         },
         {
-            name: 'icon',
-            label: 'Icono',
+            name: 'value',
+            label: 'Valor',
+            cell: 'string'
+        },
+        {
+            name: 'brand',
+            label: 'Marca',
+            cell: 'string'
+        },
+        {
+            name: 'category',
+            label: 'Categoria',
+            cell: 'string'
+        },
+        {
+            name: 'manufacturer',
+            label: 'Fabricante',
+            cell: 'string'
+        },
+        {
+            name: 'image',
+            label: 'Imagen',
             cell: Backgrid.Cell.extend({
                 /*editor: Backbone.View.extend({
                  events: {
@@ -62,7 +82,7 @@ var PageSettings = {
                     'click': 'onClick'
                 },
                 render: function () {
-                    this.$el.html('<img width="24" src="../images/category_icons/' + this.model.attributes.icon + '"/>');
+                    this.$el.html('<img width="32" src="../images/products/' + this.model.attributes.image + '"/>');
                     return this;
                 },
                 onClick: function () {
@@ -72,9 +92,13 @@ var PageSettings = {
         }
     ],
     formFields: [
-        {name: 'name', label: 'Nombre', control: 'input', placeholder: 'Carnes', required: true},
+        {name: 'name', label: 'Nombre', control: 'input', placeholder: 'ej: Don Satur - Bizcocho Salado 200g', required: true},
         {name: 'description', label: 'Descripcion', control: 'input', required: true},
-        {name: 'icon', label: 'Icono', control: 'input', type: 'file', required: true},
+        {name: 'value', label: 'Valor', control: 'input', type: 'number', required: true},
+        {name: 'brand', label: 'Marca', control: 'select', required: true, extraClasses: ['brand'], options: [{label: 'elegír'}]},
+        {name: 'category', label: 'Categoria', control: 'select', required: true, extraClasses: ['category'], options: [{label: 'elegír'}]},
+        {name: 'manufacturer', label: 'Fabricante', control: 'select', required: true, extraClasses: ['manufacturer'], options: [{label: 'elegír'}]},
+        {name: 'image', label: 'Imagen', control: 'input', type: 'file', required: true, maxlength: false},
         {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
     ]
 };
@@ -82,6 +106,15 @@ var PageSettings = {
 var SailsCollection = Backbone.PageableCollection.extend({
     sailsCollection: "",
     socket: null,
+    initialize: function (arguments, options) {
+        Backbone.PageableCollection.prototype.initialize.apply(this, arguments);
+        if (options) {
+            this.sailsCollection = options.sailsCollection;
+            this.url = options.url;
+            this.mode = options.mode;
+            this.model = options.model;
+        }
+    },
     sync: function (method, model, options) {
         var where = {};
         if (options.where) {
@@ -93,8 +126,8 @@ var SailsCollection = Backbone.PageableCollection.extend({
             this.socket = io.connect();
             this.socket.on("connect", _.bind(function () {
 
-                io.socket.get("/" + this.sailsCollection, where, _.bind(function (model) {
-                    this.set(model);
+                io.socket.get("/" + this.sailsCollection, where, _.bind(function (categories) {
+                    this.set(categories);
                 }, this));
 
                 io.socket.on(this.sailsCollection, _.bind(function (msg) {
@@ -149,6 +182,7 @@ var Model = Backbone.Model.extend({
     }
 });
 
+
 var PageableCollection = SailsCollection.extend({
     url: "/" + PageSettings.model,
     mode: "client",
@@ -194,7 +228,7 @@ var clientSideFilter = new Backgrid.Extension.ClientSideFilter({
     className: 'hidden',
     placeholder: "id, name, description",
     // The model fields to search for matches
-    fields: ['name', 'description'],
+    fields: PageSettings.searchFields,
     // How long to wait after typing has stopped before searching can start
     wait: 150
 });
@@ -212,7 +246,7 @@ $('#model_table_search').keyup(function () {
 $("#grid").append(grid.render().$el);
 $("#paginator").append(paginator.render().$el);
 
-// get models list from server
+// get categories list from server
 pageableCollection.fetch();
 
 function cleanForm(form) {
@@ -221,7 +255,6 @@ function cleanForm(form) {
         inputs[i].value = '';
     }
 }
-
 var newModel = new Model();
 var form = new Backform.Form({
     el: '#create_form',
@@ -242,7 +275,7 @@ var form = new Backform.Form({
                     if (res.error) {
                         console.error(res.message);
                     } else {
-                        self.model.set('icon', res.fileName);
+                        self.model.set('image', res.fileName);
                         self.model.save().done(function (result) {
                             newModel = new Model();
                             self.model = newModel;
@@ -261,3 +294,102 @@ var form = new Backform.Form({
         }
     }
 }).render();
+
+
+var SelectModel = Backbone.Model.extend({
+    initialize: function (arguments, options) {
+        Backbone.Model.prototype.initialize.apply(this, arguments);
+//        if (options)
+//            this.urlRoot = options.urlRoot
+        this.bind('change', this.onChange, this);
+        this.bind('add', this.onChange, this);
+    },
+    onChange: function (e) {
+        e.collection.trigger('change');
+    }
+});
+
+var BrandSelectView = Backbone.View.extend({
+    el: 'select.brand',
+    template: _.template([
+        '<option>seleccionar</option>',
+        '<% for (var i=0; i < options.length; i++) { %>',
+        '   <% var option = options[i]; %>',
+        '   <option value="<%= option.id %>"><%= option.name %></option>',
+        '<% } %>'
+    ].join('\n')),
+    initialize: function () {
+        Backbone.View.prototype.initialize.apply(this, arguments);
+        this.collection = new SailsCollection({}, {
+            url: '/brand',
+            mode: 'client',
+            model: SelectModel,
+            sailsCollection: 'brand'
+        });
+        this.listenTo(this.collection, 'change', this.render, this);
+        this.collection.fetch();
+//        this.render();
+    },
+    render: function () {
+        this.$el.html(this.template({options: this.collection.toJSON()}));
+        return this;
+    }
+});
+
+var CategorySelectView = Backbone.View.extend({
+    el: 'select.category',
+    template: _.template([
+        '<option>seleccionar</option>',
+        '<% for (var i=0; i < options.length; i++) { %>',
+        '   <% var option = options[i]; %>',
+        '   <option value="<%= option.id %>"><%= option.name %></option>',
+        '<% } %>'
+    ].join('\n')),
+    initialize: function () {
+        Backbone.View.prototype.initialize.apply(this, arguments);
+        this.collection = new SailsCollection({}, {
+            url: '/category',
+            mode: 'client',
+            model: SelectModel,
+            sailsCollection: 'category'
+        });
+        this.listenTo(this.collection, 'change', this.render, this);
+        this.collection.fetch();
+//        this.render();
+    },
+    render: function () {
+        this.$el.html(this.template({options: this.collection.toJSON()}));
+        return this;
+    }
+});
+
+var ManufacturerSelectView = Backbone.View.extend({
+    el: 'select.manufacturer',
+    template: _.template([
+        '<option>seleccionar</option>',
+        '<% for (var i=0; i < options.length; i++) { %>',
+        '   <% var option = options[i]; %>',
+        '   <option value="<%= option.id %>"><%= option.name %></option>',
+        '<% } %>'
+    ].join('\n')),
+    initialize: function () {
+        Backbone.View.prototype.initialize.apply(this, arguments);
+        this.collection = new SailsCollection({}, {
+            url: '/manufacturer',
+            mode: 'client',
+            model: SelectModel,
+            sailsCollection: 'manufacturer'
+        });
+        this.listenTo(this.collection, 'change', this.render, this);
+        this.collection.fetch();
+//        this.render();
+    },
+    render: function () {
+        this.$el.html(this.template({options: this.collection.toJSON()}));
+        return this;
+    }
+});
+
+var brandView = new BrandSelectView();
+var categoryView = new CategorySelectView();
+var manufacturerView = new ManufacturerSelectView();

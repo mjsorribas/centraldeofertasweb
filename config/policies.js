@@ -61,6 +61,15 @@ module.exports.policies = {
     'admin/CategoriesController': {
         '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
     },
+    'admin/BrandsController': {
+        '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
+    },
+    'admin/ManufacturersController': {
+        '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
+    },
+    'admin/ProductsController': {
+        '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
+    },
     LocationController: {
         '*': true
     }

@@ -1,12 +1,13 @@
+/* global sails */
+
 /**
- * SalesController
+ * BrandsController
  *
- * @description :: Server-side logic for managing admin sales SUD
+ * @description :: Server-side logic for managing admin brands CRUD
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
 var fs = require('fs.extra');
-var DIR_STRUCTURE = 'images/sales/';
+var DIR_STRUCTURE = 'images/logos/';
 
 function fileExtension(fileName) {
     return fileName.split('.').slice(-1);
@@ -26,16 +27,14 @@ module.exports = {
         res.view();
     },
     upload: function (req, res) {
-        req.file('image').upload({
+        req.file('logo').upload({
             dirname: '../public/' + DIR_STRUCTURE
         }, function (err, files) {
-            console.log(files);
             if (err)
                 return res.json({
                     error: true,
                     message: err
                 });
-            
             if (files.length === 0) {
                 return res.json({
                     error: true,
@@ -51,6 +50,7 @@ module.exports = {
                     });
                 }
             });
+
             return res.json({
                 error: false,
                 fileName: (files[0].fd).split('/').slice(-1), //fileName + '.' + fileType,

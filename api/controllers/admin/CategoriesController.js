@@ -24,11 +24,6 @@ module.exports = {
     index: function (req, res) {
         res.view();
     },
-    test: function (req, res) {
-        return res.json({
-            path: sails.config.uploadPath
-        });
-    },
     upload: function (req, res) {
         req.file('icon').upload({
             dirname: '../public/' + DIR_STRUCTURE
@@ -53,7 +48,6 @@ module.exports = {
                     });
                 }
             });
-
             return res.json({
                 error: false,
                 fileName: (files[0].fd).split('/').slice(-1), //fileName + '.' + fileType,

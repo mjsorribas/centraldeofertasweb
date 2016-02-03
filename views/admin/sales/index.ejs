@@ -3,15 +3,15 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Categorias
-        <small>Listado de todas las categorias</small>
+    <h1>Ofertas
+        <small>Listado de todas las ofertas</small>
     </h1>
     <ol class="breadcrumb">
         <li>
             <i class="fa fa-dashboard"></i> <a href="/admin"> Dashboard</a>
         </li>
         <li class="active">
-            <i class="fa fa-list"></i> Categorias
+            <i class="fa fa-list"></i> Ofertas
         </li>
     </ol>
 </section>
@@ -21,7 +21,7 @@
 
     <div class="row">
         <div id="alert_container" class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
-            <p class="hidden alert alert-success">Categoria creada exitosamente</p>
+            <p class="hidden alert alert-success">Oferta creada exitosamente</p>
             <p class="hidden alert alert-danger">Error:</p>
             <p class="hidden alert alert-info">Algo</p>
         </div>
@@ -39,13 +39,13 @@
                 <div class="box-body table-responsive no-padding">
                     <div class="margin">
                         <div class="input-group pull-left" style="width: 150px;">
-                            <input id="categories_table_search" type="text" name="table_search" class="form-control input-sm" placeholder="Search">
+                            <input id="model_table_search" type="text" name="table_search" class="form-control input-sm" placeholder="Search">
                             <div class="input-group-btn">
                                 <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                         <div class="pull-right">
-                            <select name="tablePageSize" id="tablePageSize" class="form-control" onchange="categories.setPageSize(Number(this.value))">
+                            <select name="tablePageSize" id="tablePageSize" class="form-control" onchange="pageableCollection.setPageSize(Number(this.value))">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="25">25</option>

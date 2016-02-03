@@ -16,7 +16,9 @@ module.exports = {
             type: 'string',
             defaultsTo: 'Sin descripcion'
         },
-        icon: 'string',
+        logo: {
+            type: 'string'
+        },
         products: {
             collection: 'product',
             via: 'brand'

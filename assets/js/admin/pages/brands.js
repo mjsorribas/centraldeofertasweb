@@ -6,12 +6,8 @@
  * @type Object
  */
 var PageSettings = {
-    /**
-     * Name of model (singular)
-     * @type String
-     */
-    model: 'category',
-    controller: 'categories',
+    model: 'brand',
+    controller: 'brands',
     /**
      * Identifier by wich the search input will search in the grid
      * @type Array
@@ -37,18 +33,18 @@ var PageSettings = {
             })
         },
         {
-            name: "name",
-            label: "Nombre",
-            cell: "string",
+            name: 'name',
+            label: 'Nombre',
+            cell: 'string'
         },
         {
-            name: "description",
-            label: "Descripción",
-            cell: "string"
+            name: 'description',
+            label: 'Descripcion',
+            cell: 'string'
         },
         {
-            name: 'icon',
-            label: 'Icono',
+            name: 'logo',
+            label: 'Logo',
             cell: Backgrid.Cell.extend({
                 /*editor: Backbone.View.extend({
                  events: {
@@ -62,7 +58,7 @@ var PageSettings = {
                     'click': 'onClick'
                 },
                 render: function () {
-                    this.$el.html('<img width="24" src="../images/category_icons/' + this.model.attributes.icon + '"/>');
+                    this.$el.html('<img width="32" src="../images/logos/' + this.model.attributes.logo + '"/>');
                     return this;
                 },
                 onClick: function () {
@@ -72,9 +68,9 @@ var PageSettings = {
         }
     ],
     formFields: [
-        {name: 'name', label: 'Nombre', control: 'input', placeholder: 'Carnes', required: true},
+        {name: 'name', label: 'Nombre', control: 'input', placeholder: 'ej: Oreo 2x1', required: true},
         {name: 'description', label: 'Descripcion', control: 'input', required: true},
-        {name: 'icon', label: 'Icono', control: 'input', type: 'file', required: true},
+        {name: 'logo', label: 'Logo', control: 'input', type: 'file', required: true, maxlength: false},
         {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
     ]
 };
@@ -93,8 +89,8 @@ var SailsCollection = Backbone.PageableCollection.extend({
             this.socket = io.connect();
             this.socket.on("connect", _.bind(function () {
 
-                io.socket.get("/" + this.sailsCollection, where, _.bind(function (model) {
-                    this.set(model);
+                io.socket.get("/" + this.sailsCollection, where, _.bind(function (models) {
+                    this.set(models);
                 }, this));
 
                 io.socket.on(this.sailsCollection, _.bind(function (msg) {
@@ -150,9 +146,11 @@ var Model = Backbone.Model.extend({
 });
 
 var PageableCollection = SailsCollection.extend({
+    /*** Change 'url' to model's route  ***/
     url: "/" + PageSettings.model,
     mode: "client",
     model: Model,
+    /*** Change 'sailsCollection' to model's name  ***/
     sailsCollection: PageSettings.model,
     state: {
         pageSize: 5
@@ -194,7 +192,7 @@ var clientSideFilter = new Backgrid.Extension.ClientSideFilter({
     className: 'hidden',
     placeholder: "id, name, description",
     // The model fields to search for matches
-    fields: ['name', 'description'],
+    fields: PageSettings.searchFields,
     // How long to wait after typing has stopped before searching can start
     wait: 150
 });
@@ -221,7 +219,6 @@ function cleanForm(form) {
         inputs[i].value = '';
     }
 }
-
 var newModel = new Model();
 var form = new Backform.Form({
     el: '#create_form',
@@ -242,7 +239,7 @@ var form = new Backform.Form({
                     if (res.error) {
                         console.error(res.message);
                     } else {
-                        self.model.set('icon', res.fileName);
+                        self.model.set('logo', res.fileName);
                         self.model.save().done(function (result) {
                             newModel = new Model();
                             self.model = newModel;

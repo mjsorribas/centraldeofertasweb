@@ -10,8 +10,8 @@ var PageSettings = {
      * Name of model (singular)
      * @type String
      */
-    model: 'category',
-    controller: 'categories',
+    model: 'manufacturer',
+    controller: 'manufacturer',
     /**
      * Identifier by wich the search input will search in the grid
      * @type Array
@@ -45,36 +45,11 @@ var PageSettings = {
             name: "description",
             label: "Descripción",
             cell: "string"
-        },
-        {
-            name: 'icon',
-            label: 'Icono',
-            cell: Backgrid.Cell.extend({
-                /*editor: Backbone.View.extend({
-                 events: {
-                 'click': 'onClick'
-                 },
-                 onClick: function () {
-                 console.log(this);
-                 }
-                 }),*/
-                events: {
-                    'click': 'onClick'
-                },
-                render: function () {
-                    this.$el.html('<img width="24" src="../images/category_icons/' + this.model.attributes.icon + '"/>');
-                    return this;
-                },
-                onClick: function () {
-                    console.log(this);
-                }
-            })
         }
     ],
     formFields: [
         {name: 'name', label: 'Nombre', control: 'input', placeholder: 'Carnes', required: true},
         {name: 'description', label: 'Descripcion', control: 'input', required: true},
-        {name: 'icon', label: 'Icono', control: 'input', type: 'file', required: true},
         {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
     ]
 };
@@ -229,33 +204,9 @@ var form = new Backform.Form({
     fields: PageSettings.formFields,
     events: {
         'submit': function (e) {
-            var self = this;
             e.preventDefault();
-            var formData = new FormData($('#create_form')[0]);
-            $.ajax({
-                url: '/admin/' + PageSettings.controller + '/upload',
-                type: 'POST',
-                data: formData,
-                beforeSend: function (data) {
-                },
-                success: function (res) {
-                    if (res.error) {
-                        console.error(res.message);
-                    } else {
-                        self.model.set('icon', res.fileName);
-                        self.model.save().done(function (result) {
-                            newModel = new Model();
-                            self.model = newModel;
-                            self.render();
-                        });
-                    }
-                },
-                error: function () {
-                    console.error();
-                },
-                cache: false,
-                contentType: false,
-                processData: false
+            this.model.save().done(function (result) {
+                console.log(result);
             });
             return false;
         }

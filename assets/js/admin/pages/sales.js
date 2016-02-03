@@ -1,3 +1,135 @@
+/* global Backform, Backbone, Backgrid, io */
+
+/**
+ * This should be the only thing you need to change in order to make it work with different models
+ * 
+ * @type Object
+ */
+var PageSettings = {
+    /**
+     * Name of model (singular)
+     * @type String
+     */
+    model: 'sale',
+    controller: 'sales',
+    /**
+     * Identifier by wich the search input will search in the grid
+     * @type Array
+     */
+    searchFields: ['title', 'description', 'usage'],
+    /**
+     * This are the columns to be displayed in the grid, they will probably be the same as the Model's Attributes
+     * @type Array
+     */
+    gridColumns: [
+        {
+            // enable the select-all extension
+            name: "",
+            cell: "select-row",
+            headerCell: "select-all"
+        },
+        {
+            name: "id",
+            label: "Id",
+            editable: false,
+            cell: Backgrid.IntegerCell.extend({
+                orderSeparator: ''
+            })
+        },
+        {
+            name: 'title',
+            label: 'Titulo',
+            cell: 'string'
+        },
+        {
+            name: 'description',
+            label: 'Descripcion',
+            cell: 'string'
+        },
+        {
+            name: 'usage',
+            label: 'Uso',
+            cell: 'string'
+        },
+        {
+            name: 'image',
+            label: 'Imagen',
+            cell: Backgrid.Cell.extend({
+                /*editor: Backbone.View.extend({
+                 events: {
+                 'click': 'onClick'
+                 },
+                 onClick: function () {
+                 console.log(this);
+                 }
+                 }),*/
+                events: {
+                    'click': 'onClick'
+                },
+                render: function () {
+                    this.$el.html('<img width="32" src="../images/sales/' + this.model.attributes.image + '"/>');
+                    return this;
+                },
+                onClick: function () {
+                    console.log(this);
+                }
+            })
+        },
+        {
+            name: 'value',
+            label: 'Valor',
+            cell: 'string'
+        },
+        {
+            name: 'unitsNeeded',
+            label: 'Unidades Necesarias',
+            cell: 'string'
+        },
+        {
+            name: 'buyersNeeded',
+            label: 'Compradores Necesarios',
+            cell: 'string'
+        },
+        {
+            name: 'products',
+            label: 'Productos',
+            cell: 'string'
+        },
+        {
+            name: 'dateFrom',
+            label: 'Desde',
+            cell: 'datetime'
+        },
+        {
+            name: 'dateTo',
+            label: 'Hasta',
+            cell: 'datetime'
+        },
+        {
+            name: 'deliveryDate',
+            label: 'Entrega',
+            cell: 'datetime'
+        }
+    ],
+    formFields: [
+        {name: 'title', label: 'Titulo', control: 'input', placeholder: 'ej: Oreo 2x1', required: true},
+        {name: 'description', label: 'Descripcion', control: 'input', required: true},
+        {name: 'usage', label: 'Uso', control: 'input'},
+        {name: 'image', label: 'Imagen', control: 'input', type: 'file', required: true, maxlength: false},
+        {name: 'value', label: 'Valor', control: 'input', type: 'number', required: true},
+        {name: 'unitsNeeded', label: 'Unidades Necesarias', control: 'input', type: 'number', required: true},
+        {name: 'buyersNeeded', label: 'Compradores Necesarios', control: 'input', type: 'number', required: true},
+        {name: 'dateFrom', label: 'Desde', control: 'datepicker', options: {format: 'yyyy-mm-dd'}},
+        {name: 'dateTo', label: 'Hasta', control: 'datepicker', options: {format: 'yyyy-mm-dd'}},
+        {name: 'deliveryDate', label: 'Entrega', control: 'datepicker', options: {format: 'yyyy-mm-dd'}, required: true},
+        {name: 'products', label: 'Productos', control: 'select', options: [
+                {label: 'elegí producto', value: ''}
+            ]
+        },
+        {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
+    ]
+};
+
 var SailsCollection = Backbone.PageableCollection.extend({
     sailsCollection: "",
     socket: null,
@@ -33,9 +165,8 @@ var SailsCollection = Backbone.PageableCollection.extend({
     }
 });
 
-var SaleModel = Backbone.Model.extend({
-    /*** Change this  ***/
-    urlRoot: '/sale',
+var Model = Backbone.Model.extend({
+    urlRoot: '/' + PageSettings.model,
     initialize: function () {
         Backbone.Model.prototype.initialize.apply(this, arguments);
         //this.bind("change", this.saveModel, this);
@@ -69,115 +200,18 @@ var SaleModel = Backbone.Model.extend({
     }
 });
 
-
-/** COLUMNS **/
-/*
- * This are the colums to be displayed in the grid, the will probably be the same as the Model's Attributes
- * 
- */
-var columns = [
-    {
-        // enable the select-all extension
-        name: "",
-        cell: "select-row",
-        headerCell: "select-all"
-    },
-    {
-        name: "id",
-        label: "Id",
-        editable: false,
-        cell: Backgrid.IntegerCell.extend({
-            orderSeparator: ''
-        })
-    },
-    {
-        name: 'title',
-        label: 'Titulo',
-        cell: 'string'
-    },
-    {
-        name: 'description',
-        label: 'Descripcion',
-        cell: 'string'
-    },
-    {
-        name: 'usage',
-        label: 'Uso',
-        cell: 'string'
-    },
-    {
-        name: 'image',
-        label: 'Imagen',
-        cell: Backgrid.Cell.extend({
-            /*editor: Backbone.View.extend({
-             events: {
-             'click': 'onClick'
-             },
-             onClick: function () {
-             console.log(this);
-             }
-             }),*/
-            events: {
-                'click': 'onClick'
-            },
-            render: function () {
-                this.$el.html('<img width="32" src="../images/sales/' + this.model.attributes.image + '"/>');
-                return this;
-            },
-            onClick: function () {
-                console.log(this);
-            }
-        })
-    },
-    {
-        name: 'value',
-        label: 'Valor',
-        cell: 'string'
-    },
-    {
-        name: 'unitsNeeded',
-        label: 'Unidades Necesarias',
-        cell: 'string'
-    },
-    {
-        name: 'buyersNeeded',
-        label: 'Compradores Necesarios',
-        cell: 'string'
-    },
-    {
-        name: 'products',
-        label: 'Productos',
-        cell: 'string'
-    },
-    {
-        name: 'dateFrom',
-        label: 'Desde',
-        cell: 'datetime'
-    },
-    {
-        name: 'dateTo',
-        label: 'Hasta',
-        cell: 'datetime'
-    },
-    {
-        name: 'deliveryDate',
-        label: 'Entrega',
-        cell: 'datetime'
-    }
-];
-var CategoryPageable = SailsCollection.extend({
-    /*** Change 'url' to model's route  ***/
-    url: "/sale",
+var PageableCollection = SailsCollection.extend({
+    url: "/" + PageSettings.model,
     mode: "client",
-    model: SaleModel,
+    model: Model,
     /*** Change 'sailsCollection' to model's name  ***/
-    sailsCollection: 'sale',
+    sailsCollection: PageSettings.model,
     state: {
         pageSize: 5
     }
 });
 
-var pageableCollection = new CategoryPageable();
+var pageableCollection = new PageableCollection();
 
 Backgrid.Grid.prototype.deleteModels = function () {
     var models = this.getSelectedModels();
@@ -197,7 +231,7 @@ Backgrid.Grid.prototype.deleteModels = function () {
 };
 
 var grid = new Backgrid.Grid({
-    columns: columns,
+    columns: PageSettings.gridColumns,
     collection: pageableCollection,
     className: 'table table-striped table-hover'
 });
@@ -212,14 +246,14 @@ var clientSideFilter = new Backgrid.Extension.ClientSideFilter({
     className: 'hidden',
     placeholder: "id, name, description",
     // The model fields to search for matches
-    fields: ['name', 'description'],
+    fields: PageSettings.searchFields,
     // How long to wait after typing has stopped before searching can start
     wait: 150
 });
 
 // set search and filter input box
 $("#grid").prepend(clientSideFilter.render().el);
-$('#categories_table_search').keyup(function () {
+$('#model_table_search').keyup(function () {
     var value = this.value;
     var input = $(clientSideFilter.el).children()[1];
     input.value = value;
@@ -239,34 +273,18 @@ function cleanForm(form) {
         inputs[i].value = '';
     }
 }
-var newModel = new SaleModel();
+var newModel = new Model();
 var form = new Backform.Form({
     el: '#create_form',
     model: newModel,
-    fields: [
-        {name: 'title', label: 'Titulo', control: 'input', placeholder: 'ej: Oreo 2x1', required: true},
-        {name: 'description', label: 'Descripcion', control: 'input', required: true},
-        {name: 'usage', label: 'Uso', control: 'input'},
-        {name: 'image', label: 'Imagen', control: 'input', type: 'file', required: true, maxlength: false},
-        {name: 'value', label: 'Valor', control: 'input', type: 'number', required: true},
-        {name: 'unitsNeeded', label: 'Unidades Necesarias', control: 'input', type: 'number', required: true},
-        {name: 'buyersNeeded', label: 'Compradores Necesarios', control: 'input', type: 'number', required: true},
-        {name: 'dateFrom', label: 'Desde', control: 'datepicker', options: {format: 'yyyy-mm-dd'}},
-        {name: 'dateTo', label: 'Hasta', control: 'datepicker', options: {format: 'yyyy-mm-dd'}},
-        {name: 'deliveryDate', label: 'Entrega', control: 'datepicker', options: {format: 'yyyy-mm-dd'}, required: true},
-        {name: 'products', label: 'Productos', control: 'select', options: [
-                {label: 'elegí producto', value: ''}
-            ]
-        },
-        {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
-    ],
+    fields: PageSettings.formFields,
     events: {
         'submit': function (e) {
             var self = this;
             e.preventDefault();
             var formData = new FormData($('#create_form')[0]);
             $.ajax({
-                url: '/admin/sales/upload',
+                url: '/admin/' + PageSettings.controller + '/upload',
                 type: 'POST',
                 data: formData,
                 beforeSend: function (data) {
@@ -277,8 +295,9 @@ var form = new Backform.Form({
                     } else {
                         self.model.set('image', res.fileName);
                         self.model.save().done(function (result) {
-                            newModel = new SaleModel();
-                            cleanForm(this.el);
+                            newModel = new Model();
+                            self.model = newModel;
+                            self.render();
                         });
                     }
                 },
