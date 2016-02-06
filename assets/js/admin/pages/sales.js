@@ -112,27 +112,148 @@ var PageSettings = {
         }
     ],
     formFields: [
-        {name: 'title', label: 'Titulo', control: 'input', placeholder: 'ej: Oreo 2x1', required: true},
-        {name: 'description', label: 'Descripcion', control: 'input', required: true},
-        {name: 'usage', label: 'Uso', control: 'input'},
-        {name: 'image', label: 'Imagen', control: 'input', type: 'file', required: true, maxlength: false},
-        {name: 'value', label: 'Valor', control: 'input', type: 'number', required: true},
-        {name: 'unitsNeeded', label: 'Unidades Necesarias', control: 'input', type: 'number', required: true},
-        {name: 'buyersNeeded', label: 'Compradores Necesarios', control: 'input', type: 'number', required: true},
-        {name: 'dateFrom', label: 'Desde', control: 'datepicker', options: {format: 'yyyy-mm-dd'}},
-        {name: 'dateTo', label: 'Hasta', control: 'datepicker', options: {format: 'yyyy-mm-dd'}},
-        {name: 'deliveryDate', label: 'Entrega', control: 'datepicker', options: {format: 'yyyy-mm-dd'}, required: true},
-        {name: 'products', label: 'Productos', control: 'select', options: [
-                {label: 'elegí producto', value: ''}
+        {
+            name: 'title',
+            label: 'Titulo',
+            control: 'input',
+            placeholder: 'ej: Oreo 2x1',
+            required: true
+        },
+        {
+            name: 'description',
+            label: 'Descripcion',
+            control: 'input',
+            required: true
+        },
+        {
+            name: 'usage',
+            label: 'Uso',
+            control: 'input'
+        },
+        {
+            name: 'image',
+            label: 'Imagen',
+            control: 'input',
+            type: 'file',
+            required: true,
+            maxlength: false
+        },
+        {
+            name: 'value',
+            label: 'Valor',
+            control: 'input',
+            type: 'number',
+            required: true
+        },
+        {
+            name: 'unitsNeeded',
+            label: 'Unidades Necesarias',
+            control: 'input',
+            type: 'number',
+            required: true
+        },
+        {
+            name: 'buyersNeeded',
+            label: 'Compradores Necesarios',
+            control: 'input',
+            type: 'number',
+            required: true
+        },
+        {
+            name: 'dateFrom',
+            label: 'Desde',
+            control: 'datepicker',
+            options: {
+                format: 'yyyy-mm-dd'
+            }
+        },
+        {
+            name: 'dateTo',
+            label: 'Hasta',
+            control: 'datepicker',
+            options: {
+                format: 'yyyy-mm-dd'
+            }
+        },
+        {
+            name: 'deliveryDate',
+            label: 'Entrega',
+            control: 'datepicker',
+            options: {
+                format: 'yyyy-mm-dd'
+            },
+            required: true
+        },
+        {
+            name: 'products',
+            label: 'Productos',
+            control: Backform.MultiSelectControl.extend({
+                onChange: function (e) {
+                    var options = e.target.options;
+                    var model = this.model,
+                        $el = $(e.target),
+                        attrArr = this.field.get("name").split('.'),
+                        name = attrArr.shift(),
+                        path = attrArr.join('.'),
+                        value = [],
+                        changes = {};
+
+                    for (var i = 0; i < options.length; i++) {
+                        var option = options[i];
+                        if (option.selected && !(_.isEmpty(option.value)))
+                            value.push(option.value);
+                    }
+
+                    if (this.model.errorModel instanceof Backbone.Model) {
+                        if (_.isEmpty(path)) {
+                            this.model.errorModel.unset(name);
+                        } else {
+                            var nestedError = this.model.errorModel.get(name);
+                            if (nestedError) {
+                                this.keyPathSetter(nestedError, path, null);
+                                this.model.errorModel.set(name, nestedError);
+                            }
+                        }
+                    }
+
+
+                    changes[name] = _.isEmpty(path) ? value : _.clone(model.get(name)) || {};
+
+                    if (!_.isEmpty(path)) this.keyPathSetter(changes[name], path, value);
+                    this.stopListening(this.model, "change:" + name, this.render);
+                    console.log(changes);
+                    model.set(changes);
+                    this.listenTo(this.model, "change:" + name, this.render);
+                }
+            }),
+            extraClasses: ['products'],
+            options: [
+                {
+                    label: 'no hay productos',
+                    disabled: true
+                }
             ]
         },
-        {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
+        {
+            control: 'button',
+            label: 'Crear',
+            extraClasses: ['btn-info', 'pull-right']
+        }
     ]
 };
 
 var SailsCollection = Backbone.PageableCollection.extend({
     sailsCollection: "",
     socket: null,
+    initialize: function (arguments, options) {
+        Backbone.PageableCollection.prototype.initialize.apply(this, arguments);
+        if (options) {
+            this.sailsCollection = options.sailsCollection;
+            this.url = options.url;
+            this.mode = options.mode;
+            this.model = options.model;
+        }
+    },
     sync: function (method, model, options) {
         var where = {};
         if (options.where) {
@@ -273,7 +394,9 @@ function cleanForm(form) {
         inputs[i].value = '';
     }
 }
-var newModel = new Model();
+var newModel = new Model({
+    products: []
+});
 var form = new Backform.Form({
     el: '#create_form',
     model: newModel,
@@ -287,8 +410,7 @@ var form = new Backform.Form({
                 url: '/admin/' + PageSettings.controller + '/upload',
                 type: 'POST',
                 data: formData,
-                beforeSend: function (data) {
-                },
+                beforeSend: function (data) {},
                 success: function (res) {
                     if (res.error) {
                         console.error(res.message);
@@ -312,3 +434,47 @@ var form = new Backform.Form({
         }
     }
 }).render();
+
+var SelectModel = Backbone.Model.extend({
+    initialize: function (arguments, options) {
+        Backbone.Model.prototype.initialize.apply(this, arguments);
+        //        if (options)
+        //            this.urlRoot = options.urlRoot
+        this.bind('change', this.onChange, this);
+        this.bind('add', this.onChange, this);
+    },
+    onChange: function (e) {
+        e.collection.trigger('change');
+    }
+});
+
+var ProductSelectView = Backbone.View.extend({
+    el: 'select.products',
+    template: _.template([
+        '<option disabled>seleccionar</option>',
+        '<% for (var i=0; i < options.length; i++) { %>',
+        '   <% var option = options[i]; %>',
+        '   <option value="<%= option.id %>"><%= option.name %></option>',
+        '<% } %>'
+    ].join('\n')),
+    initialize: function () {
+        Backbone.View.prototype.initialize.apply(this, arguments);
+        this.collection = new SailsCollection({}, {
+            url: '/product',
+            mode: 'client',
+            model: SelectModel,
+            sailsCollection: 'product'
+        });
+        this.listenTo(this.collection, 'change', this.render, this);
+        this.collection.fetch();
+        //        this.render();
+    },
+    render: function () {
+        this.$el.html(this.template({
+            options: this.collection.toJSON()
+        }));
+        return this;
+    }
+});
+
+var selectProductsView = new ProductSelectView();

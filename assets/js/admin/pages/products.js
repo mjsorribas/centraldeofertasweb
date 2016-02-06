@@ -95,9 +95,9 @@ var PageSettings = {
         {name: 'name', label: 'Nombre', control: 'input', placeholder: 'ej: Don Satur - Bizcocho Salado 200g', required: true},
         {name: 'description', label: 'Descripcion', control: 'input', required: true},
         {name: 'value', label: 'Valor', control: 'input', type: 'number', required: true},
-        {name: 'brand', label: 'Marca', control: 'select', required: true, extraClasses: ['brand'], options: [{label: 'elegír'}]},
-        {name: 'category', label: 'Categoria', control: 'select', required: true, extraClasses: ['category'], options: [{label: 'elegír'}]},
-        {name: 'manufacturer', label: 'Fabricante', control: 'select', required: true, extraClasses: ['manufacturer'], options: [{label: 'elegír'}]},
+        {name: 'brand', label: 'Marca', control: 'select', required: true, extraClasses: ['brand'], options: [{label: 'no hay marcas'}]},
+        {name: 'category', label: 'Categoria', control: 'select', required: true, extraClasses: ['category'], options: [{label: 'no hay categorias'}]},
+        {name: 'manufacturer', label: 'Fabricante', control: 'select', required: true, extraClasses: ['manufacturer'], options: [{label: 'no hay fabricantes'}]},
         {name: 'image', label: 'Imagen', control: 'input', type: 'file', required: true, maxlength: false},
         {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
     ]
