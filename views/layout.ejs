@@ -21,14 +21,15 @@
         <!--STYLES END-->
         <link rel="stylesheet" href="styles/landing/style.css">
         <link rel="stylesheet" href="styles/landing/animate.css">
+        <%- block.styles %>
     </head>
 
-    <body>
+    <body class="<%- block.bodycustomclass %>">
         <div class="container-fluid <%- block.maincontainercustomclass %>">
             <%- body %>
         </div>
         <!--TEMPLATES-->
-        <script type="text/javascript" src="/jst.js"></script>
+        
         <!--TEMPLATES END-->
 
         <!--SCRIPTS-->

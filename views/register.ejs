@@ -1,19 +1,27 @@
-<div class="row">
-    <div class="col-xs-3 center-block">
-        <form action="/user" method="POST">
-            <div class="form-group">
-                <label for="username">Nombre de Usuario</label>
-                <input class="form-control" type="text" id="username" name="username" placeholder="opcional" />
-            </div>
-            <div class="form-group">
-                <label for="email">Mail</label>
-                <input class="form-control" type="email" id="email" name="email" placeholder=".." required />
-            </div>
-            <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input class="form-control" type="password" name="password" placeholder="Contraseña" required />
-            </div>
-            <input type="submit" value="Login" class="btn btn-default" />
-        </form>
+<% block.styles = "<link rel='stylesheet' href='/styles/admin/AdminLTE.min.css'></link>" %>
+<% block.bodycustomclass = "grey-background" %>
+<div class="register-box">
+    <div class="register-logo">
+        <a href="https://almsaeedstudio.com/themes/AdminLTE/index2.html"><b>Central de Ofertas</b></a>
     </div>
+
+    <div class="register-box-body">
+        <p class="login-box-msg">Registrarse como usuario</p>
+        <form id="register_form" action="/user" method="POST">
+        </form>
+
+<!--        <div class="social-auth-links text-center">
+            <p>- OR -</p>
+            <a href="https://almsaeedstudio.com/themes/AdminLTE/pages/examples/register.html#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
+                Facebook</a>
+            <a href="https://almsaeedstudio.com/themes/AdminLTE/pages/examples/register.html#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
+                Google+</a>
+        </div>
+
+        <a href="https://almsaeedstudio.com/themes/AdminLTE/pages/examples/login.html" class="text-center">I already have a membership</a>-->
+    </div>
+    <!-- /.form-box -->
 </div>
+<!-- /.register-box -->
+
+<% block.scripts = "<script src='/js/custom/register.js'></script>" %>

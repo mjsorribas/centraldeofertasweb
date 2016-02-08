@@ -8,9 +8,15 @@
 module.exports = {
 
     info: function (req, res) {
-        var sale;
-        Sale.findOne(1).populate('products').exec(function (er, resp) {
+        Sale.findOne(req.param('id')).populateAll().exec(function (er, resp) {
+            if (er)
+                return res.json({
+                    error: true,
+                    msg: er
+                });
+            
             return res.json({
+                error: false,
                 item: resp
             });
         });

@@ -25,20 +25,6 @@ module.exports = {
     index: function (req, res) {
         res.view();
     },
-    info: function (req, res) {
-        Product.findOne(req.param('id')).populateAll().exec(function (er, resp) {
-            if (er)
-                return res.json({
-                    error: true,
-                    msg: err
-                });
-
-            return res.json({
-                error: false,
-                item: resp
-            });
-        });
-    },
     upload: function (req, res) {
         req.file('image').upload({
             dirname: '../public/' + DIR_STRUCTURE
