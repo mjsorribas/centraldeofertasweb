@@ -1,8 +1,8 @@
 /**
  * Admin/
- * ManufacturersController
+ * WorktypesController
  *
- * @description :: Server-side logic for managing admin manufacturers CRUD
+ * @description :: Server-side logic for managing admin worktypes CRUD
  */
 
 module.exports = {

@@ -70,6 +70,12 @@ module.exports.policies = {
     'admin/ProductsController': {
         '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
     },
+    'admin/WorktypesController': {
+        '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
+    },
+    'admin/UsersController': {
+        '*': ['setLayout', 'basicAuth', 'passport', 'sessionAuth']
+    },
     LocationController: {
         '*': true
     }

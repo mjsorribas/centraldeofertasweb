@@ -6,13 +6,13 @@
  * @type Object
  */
 var PageSettings = {
-    model: 'brand',
-    controller: 'brands',
+    model: 'user',
+    controller: 'users',
     /**
      * Identifier by wich the search input will search in the grid
      * @type Array
      */
-    searchFields: ['name', 'description'],
+    searchFields: ['username', 'email', 'firstName', 'lastName', 'worktype', 'cuit', 'businessName'],
     /**
      * This are the columns to be displayed in the grid, they will probably be the same as the Model's Attributes
      * @type Array
@@ -33,32 +33,54 @@ var PageSettings = {
             })
         },
         {
-            name: 'name',
+            name: 'username',
+            label: 'Nombre de Usuario',
+            cell: 'string'
+        },
+        {
+            name: 'email',
+            label: 'Mail',
+            cell: 'string'
+        },
+        {
+            name: 'firstName',
             label: 'Nombre',
             cell: 'string'
         },
         {
-            name: 'description',
-            label: 'Descripcion',
+            name: 'lastName',
+            label: 'Apellido',
             cell: 'string'
         },
         {
-            name: 'logo',
-            label: 'Logo',
+            name: 'worktype',
+            label: 'Rubro',
+            cell: 'string'
+        },
+        {
+            name: 'phone',
+            label: 'Tel',
+            cell: 'string'
+        },
+        {
+            name: 'cuit',
+            label: 'CUIT',
+            cell: 'string'
+        },
+        {
+            name: 'businessName',
+            label: 'Razon Social',
+            cell: 'string'
+        },
+        {
+            name: 'getGravatar',
+            label: 'Avatar',
             cell: Backgrid.Cell.extend({
-                /*editor: Backbone.View.extend({
-                 events: {
-                 'click': 'onClick'
-                 },
-                 onClick: function () {
-                 console.log(this);
-                 }
-                 }),*/
                 events: {
                     'click': 'onClick'
                 },
                 render: function () {
-                    this.$el.html('<img width="32" src="../images/logos/' + this.model.attributes.logo + '"/>');
+                    this.$el.html('<img width="32" src="' + this.model.attributes.gravatarUrl + '?d=retro"/>');
                     return this;
                 },
                 onClick: function () {
@@ -67,14 +89,9 @@ var PageSettings = {
             })
         }
     ],
-    formFields: [
-        {name: 'name', label: 'Nombre', control: 'input', placeholder: 'ej: Oreo 2x1', required: true},
-        {name: 'description', label: 'Descripcion', control: 'input', required: true},
-        {name: 'logo', label: 'Logo', control: 'input', type: 'file', required: true, maxlength: false},
-        {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
-    ]
+    formFields: []
 };
-(function () {
+//(function () {
     var SailsCollection = Backbone.PageableCollection.extend({
         sailsCollection: "",
         socket: null,
@@ -140,7 +157,7 @@ var PageSettings = {
                 wait: true,
                 success: function (model, res) {
 //                    console.log('Success: ', model, res);
-                    triggerAlert('success', 'Marca modificada');
+                    triggerAlert('success', 'Usuario modificado');
                 },
                 error: function (model, res) {
                     console.error('Error: ', model, res);
@@ -225,43 +242,44 @@ var PageSettings = {
             inputs[i].value = '';
         }
     }
-    var newModel = new Model();
-    var form = new Backform.Form({
-        el: '#create_form',
-        model: newModel,
-        fields: PageSettings.formFields,
-        events: {
-            'submit': function (e) {
-                var self = this;
-                e.preventDefault();
-                var formData = new FormData($('#create_form')[0]);
-                $.ajax({
-                    url: '/admin/' + PageSettings.controller + '/upload',
-                    type: 'POST',
-                    data: formData,
-                    beforeSend: function (data) {
-                    },
-                    success: function (res) {
-                        if (res.error) {
-                            console.error(res.message);
-                        } else {
-                            self.model.set('logo', res.fileName);
-                            self.model.save().done(function (result) {
-                                newModel = new Model();
-                                self.model = newModel;
-                                self.render();
-                            });
-                        }
-                    },
-                    error: function () {
-                        console.error();
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-                return false;
-            }
-        }
-    }).render();
-})();
+    /*var newModel = new Model();
+     var form = new Backform.Form({
+     el: '#create_form',
+     model: newModel,
+     fields: PageSettings.formFields,
+     events: {
+     'submit': function (e) {
+     var self = this;
+     e.preventDefault();
+     var formData = new FormData($('#create_form')[0]);
+     $.ajax({
+     url: '/admin/' + PageSettings.controller + '/upload',
+     type: 'POST',
+     data: formData,
+     beforeSend: function (data) {
+     },
+     success: function (res) {
+     if (res.error) {
+     console.error(res.message);
+     } else {
+     self.model.set('logo', res.fileName);
+     self.model.save().done(function (result) {
+     newModel = new Model();
+     self.model = newModel;
+     self.render();
+     });
+     }
+     },
+     error: function () {
+     console.error();
+     },
+     cache: false,
+     contentType: false,
+     processData: false
+     });
+     return false;
+     }
+     }
+     }).render();
+     */
+//})();

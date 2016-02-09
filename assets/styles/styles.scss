@@ -83,3 +83,25 @@ div.pagination-holder ul {
 .grey-background {
     background-color: #d2d6de;
 }
+
+.main-image-background {
+    background: url('/images/background.jpg') no-repeat center;
+    background-size: cover;
+}
+
+#alert_container {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    transition: 1s all;
+    transform: translateY(120px);
+}
+
+#alert_container.leave {
+    opacity: 0;
+    transform: translateY(120px);
+}
+#alert_container.enter {
+    opacity: 1;
+    transform: translateY(0px);
+}

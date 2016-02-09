@@ -6,8 +6,12 @@
  * @type Object
  */
 var PageSettings = {
-    model: 'brand',
-    controller: 'brands',
+    /**
+     * Name of model (singular)
+     * @type String
+     */
+    model: 'worktype',
+    controller: 'worktypes',
     /**
      * Identifier by wich the search input will search in the grid
      * @type Array
@@ -33,83 +37,59 @@ var PageSettings = {
             })
         },
         {
-            name: 'name',
-            label: 'Nombre',
-            cell: 'string'
+            name: "name",
+            label: "Nombre",
+            cell: "string"
         },
         {
-            name: 'description',
-            label: 'Descripcion',
-            cell: 'string'
-        },
-        {
-            name: 'logo',
-            label: 'Logo',
-            cell: Backgrid.Cell.extend({
-                /*editor: Backbone.View.extend({
-                 events: {
-                 'click': 'onClick'
-                 },
-                 onClick: function () {
-                 console.log(this);
-                 }
-                 }),*/
-                events: {
-                    'click': 'onClick'
-                },
-                render: function () {
-                    this.$el.html('<img width="32" src="../images/logos/' + this.model.attributes.logo + '"/>');
-                    return this;
-                },
-                onClick: function () {
-                    console.log(this);
-                }
-            })
+            name: "description",
+            label: "Descripción",
+            cell: "string"
         }
     ],
     formFields: [
-        {name: 'name', label: 'Nombre', control: 'input', placeholder: 'ej: Oreo 2x1', required: true},
+        {name: 'name', label: 'Nombre', control: 'input', placeholder: 'Almacenero', required: true},
         {name: 'description', label: 'Descripcion', control: 'input', required: true},
-        {name: 'logo', label: 'Logo', control: 'input', type: 'file', required: true, maxlength: false},
         {control: 'button', label: 'Crear', extraClasses: ['btn-info', 'pull-right']}
     ]
 };
-(function () {
-    var SailsCollection = Backbone.PageableCollection.extend({
-        sailsCollection: "",
-        socket: null,
-        sync: function (method, model, options) {
-            var where = {};
-            if (options.where) {
-                where = {
-                    where: options.where
-                };
-            }
-            if (typeof this.sailsCollection === "string" && this.sailsCollection !== "") {
-                this.socket = io.connect();
-                this.socket.on("connect", _.bind(function () {
 
-                    io.socket.get("/" + this.sailsCollection, where, _.bind(function (models) {
-                        this.set(models);
-                    }, this));
-
-                    io.socket.on(this.sailsCollection, _.bind(function (msg) {
-                        var m = msg.verb;
-                        if (m === "created") {
-                            this.add(msg.data);
-                        } else if (m === "updated") {
-                            this.get(msg.id).set(msg.data);
-                        } else if (m === "destroyed") {
-                            this.remove(this.get(msg.id));
-                        }
-                    }, this));
-                }, this));
-            } else {
-                console.warn("Error: Cannot retrieve models because property 'sailsCollection' not set on the collection");
-            }
+var SailsCollection = Backbone.PageableCollection.extend({
+    sailsCollection: "",
+    socket: null,
+    sync: function (method, model, options) {
+        var where = {};
+        if (options.where) {
+            where = {
+                where: options.where
+            };
         }
-    });
+        if (typeof this.sailsCollection === "string" && this.sailsCollection !== "") {
+            this.socket = io.connect();
+            this.socket.on("connect", _.bind(function () {
 
+                io.socket.get("/" + this.sailsCollection, where, _.bind(function (model) {
+                    this.set(model);
+                }, this));
+
+                io.socket.on(this.sailsCollection, _.bind(function (msg) {
+                    var m = msg.verb;
+                    if (m === "created") {
+                        this.add(msg.data);
+                    } else if (m === "updated") {
+                        this.get(msg.id).set(msg.data);
+                    } else if (m === "destroyed") {
+                        this.remove(this.get(msg.id));
+                    }
+                }, this));
+            }, this));
+        } else {
+            console.warn("Error: Cannot retrieve models because property 'sailsCollection' not set on the collection");
+        }
+    }
+});
+
+(function () {
     var Model = Backbone.Model.extend({
         urlRoot: '/' + PageSettings.model,
         initialize: function () {
@@ -140,7 +120,7 @@ var PageSettings = {
                 wait: true,
                 success: function (model, res) {
 //                    console.log('Success: ', model, res);
-                    triggerAlert('success', 'Marca modificada');
+                    triggerAlert('success', 'Rubro modificado');
                 },
                 error: function (model, res) {
                     console.error('Error: ', model, res);
@@ -152,11 +132,9 @@ var PageSettings = {
     });
 
     var PageableCollection = SailsCollection.extend({
-        /*** Change 'url' to model's route  ***/
         url: "/" + PageSettings.model,
         mode: "client",
         model: Model,
-        /*** Change 'sailsCollection' to model's name  ***/
         sailsCollection: PageSettings.model,
         state: {
             pageSize: 5
@@ -198,7 +176,7 @@ var PageSettings = {
         className: 'hidden',
         placeholder: "id, name, description",
         // The model fields to search for matches
-        fields: PageSettings.searchFields,
+        fields: ['name', 'description'],
         // How long to wait after typing has stopped before searching can start
         wait: 150
     });
@@ -225,6 +203,7 @@ var PageSettings = {
             inputs[i].value = '';
         }
     }
+
     var newModel = new Model();
     var form = new Backform.Form({
         el: '#create_form',
@@ -232,33 +211,9 @@ var PageSettings = {
         fields: PageSettings.formFields,
         events: {
             'submit': function (e) {
-                var self = this;
                 e.preventDefault();
-                var formData = new FormData($('#create_form')[0]);
-                $.ajax({
-                    url: '/admin/' + PageSettings.controller + '/upload',
-                    type: 'POST',
-                    data: formData,
-                    beforeSend: function (data) {
-                    },
-                    success: function (res) {
-                        if (res.error) {
-                            console.error(res.message);
-                        } else {
-                            self.model.set('logo', res.fileName);
-                            self.model.save().done(function (result) {
-                                newModel = new Model();
-                                self.model = newModel;
-                                self.render();
-                            });
-                        }
-                    },
-                    error: function () {
-                        console.error();
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
+                this.model.save().done(function (result) {
+                    console.log(result);
                 });
                 return false;
             }

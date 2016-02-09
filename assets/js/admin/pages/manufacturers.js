@@ -11,7 +11,7 @@ var PageSettings = {
      * @type String
      */
     model: 'manufacturer',
-    controller: 'manufacturer',
+    controller: 'manufacturers',
     /**
      * Identifier by wich the search input will search in the grid
      * @type Array
@@ -54,161 +54,169 @@ var PageSettings = {
     ]
 };
 
-var SailsCollection = Backbone.PageableCollection.extend({
-    sailsCollection: "",
-    socket: null,
-    sync: function (method, model, options) {
-        var where = {};
-        if (options.where) {
-            where = {
-                where: options.where
-            };
-        }
-        if (typeof this.sailsCollection === "string" && this.sailsCollection !== "") {
-            this.socket = io.connect();
-            this.socket.on("connect", _.bind(function () {
-
-                io.socket.get("/" + this.sailsCollection, where, _.bind(function (model) {
-                    this.set(model);
-                }, this));
-
-                io.socket.on(this.sailsCollection, _.bind(function (msg) {
-                    var m = msg.verb;
-                    if (m === "created") {
-                        this.add(msg.data);
-                    } else if (m === "updated") {
-                        this.get(msg.id).set(msg.data);
-                    } else if (m === "destroyed") {
-                        this.remove(this.get(msg.id));
-                    }
-                }, this));
-            }, this));
-        } else {
-            console.warn("Error: Cannot retrieve models because property 'sailsCollection' not set on the collection");
-        }
-    }
-});
-
-var Model = Backbone.Model.extend({
-    urlRoot: '/' + PageSettings.model,
-    initialize: function () {
-        Backbone.Model.prototype.initialize.apply(this, arguments);
-        //this.bind("change", this.saveModel, this);
-        //this.bind('backgrid:edit', this.edit, this);
-        //this.bind('backgrid:editing', this.editing, this);
-        this.bind('backgrid:edited', this.edited, this);
-    },
-    edit: function () {
-        //console.log('Edit', this);
-    },
-    editing: function () {
-        //console.log('Editing', this);
-    },
-    edited: function (model, options, command) {
-        if (command.which == 27 || command.which == 0)
-            return false;
-        /** TODO: check actual change in model **/
-        this.saveModel();
-    },
-    saveModel: function () {
-        this.save(null, {
-            silent: true,
-            wait: true,
-            success: function (model, res) {
-                console.log('Success: ', model, res);
-            },
-            error: function (model, res) {
-                console.error('Error: ', model, res);
+(function () {
+    var SailsCollection = Backbone.PageableCollection.extend({
+        sailsCollection: "",
+        socket: null,
+        sync: function (method, model, options) {
+            var where = {};
+            if (options.where) {
+                where = {
+                    where: options.where
+                };
             }
-        });
-    }
-});
+            if (typeof this.sailsCollection === "string" && this.sailsCollection !== "") {
+                this.socket = io.connect();
+                this.socket.on("connect", _.bind(function () {
 
-var PageableCollection = SailsCollection.extend({
-    url: "/" + PageSettings.model,
-    mode: "client",
-    model: Model,
-    sailsCollection: PageSettings.model,
-    state: {
-        pageSize: 5
-    }
-});
+                    io.socket.get("/" + this.sailsCollection, where, _.bind(function (model) {
+                        this.set(model);
+                    }, this));
 
-var pageableCollection = new PageableCollection();
-
-Backgrid.Grid.prototype.deleteModels = function () {
-    var models = this.getSelectedModels();
-    if (models.length <= 0) {
-        alert('No models where selected');
-        return false;
-    } else {
-        var r = confirm('Seguro que desea eliminar los elementos seleccionados?');
-        if (r) {
-            for (var i = 0; i < models.length; i++) {
-                models[i].destroy();
+                    io.socket.on(this.sailsCollection, _.bind(function (msg) {
+                        var m = msg.verb;
+                        if (m === "created") {
+                            this.add(msg.data);
+                        } else if (m === "updated") {
+                            this.get(msg.id).set(msg.data);
+                        } else if (m === "destroyed") {
+                            this.remove(this.get(msg.id));
+                        }
+                    }, this));
+                }, this));
+            } else {
+                console.warn("Error: Cannot retrieve models because property 'sailsCollection' not set on the collection");
             }
-        } else {
-            return false;
         }
-    }
-};
+    });
 
-var grid = new Backgrid.Grid({
-    columns: PageSettings.gridColumns,
-    collection: pageableCollection,
-    className: 'table table-striped table-hover'
-});
+    var Model = Backbone.Model.extend({
+        urlRoot: '/' + PageSettings.model,
+        initialize: function () {
+            Backbone.Model.prototype.initialize.apply(this, arguments);
+            //this.bind("change", this.saveModel, this);
+            //this.bind('backgrid:edit', this.edit, this);
+            //this.bind('backgrid:editing', this.editing, this);
+            this.bind('backgrid:edited', this.edited, this);
+        },
+        edit: function () {
+            //console.log('Edit', this);
+        },
+        editing: function () {
+            //console.log('Editing', this);
+        },
+        edited: function (model, options, command) {
+            var value = model.changed[options.attributes.name];
+            if (value == '' || value == null || value == false)
+                return false;
+            if (command.which == 27 || command.which == 0)
+                return false;
+            /** TODO: check actual change in model **/
+            this.saveModel();
+        },
+        saveModel: function () {
+            this.save(null, {
+                silent: true,
+                wait: true,
+                success: function (model, res) {
+//                    console.log('Success: ', model, res);
+                    triggerAlert('success', 'Fabricante modificado');
+                },
+                error: function (model, res) {
+                    console.error('Error: ', model, res);
+                    triggerAlert('error', 'Error: Atributos invalidos');
+                    model.fetch();
+                }
+            });
+        }
+    });
 
-var paginator = new Backgrid.Extension.Paginator({
-    collection: pageableCollection,
-    className: 'pagination-holder'
-});
+    var PageableCollection = SailsCollection.extend({
+        url: "/" + PageSettings.model,
+        mode: "client",
+        model: Model,
+        sailsCollection: PageSettings.model,
+        state: {
+            pageSize: 5
+        }
+    });
 
-var clientSideFilter = new Backgrid.Extension.ClientSideFilter({
-    collection: pageableCollection,
-    className: 'hidden',
-    placeholder: "id, name, description",
-    // The model fields to search for matches
-    fields: ['name', 'description'],
-    // How long to wait after typing has stopped before searching can start
-    wait: 150
-});
+    var pageableCollection = new PageableCollection();
+
+    Backgrid.Grid.prototype.deleteModels = function () {
+        var models = this.getSelectedModels();
+        if (models.length <= 0) {
+            alert('No models where selected');
+            return false;
+        } else {
+            var r = confirm('Seguro que desea eliminar los elementos seleccionados?');
+            if (r) {
+                for (var i = 0; i < models.length; i++) {
+                    models[i].destroy();
+                }
+            } else {
+                return false;
+            }
+        }
+    };
+
+    var grid = new Backgrid.Grid({
+        columns: PageSettings.gridColumns,
+        collection: pageableCollection,
+        className: 'table table-striped table-hover'
+    });
+
+    var paginator = new Backgrid.Extension.Paginator({
+        collection: pageableCollection,
+        className: 'pagination-holder'
+    });
+
+    var clientSideFilter = new Backgrid.Extension.ClientSideFilter({
+        collection: pageableCollection,
+        className: 'hidden',
+        placeholder: "id, name, description",
+        // The model fields to search for matches
+        fields: ['name', 'description'],
+        // How long to wait after typing has stopped before searching can start
+        wait: 150
+    });
 
 // set search and filter input box
-$("#grid").prepend(clientSideFilter.render().el);
-$('#model_table_search').keyup(function () {
-    var value = this.value;
-    var input = $(clientSideFilter.el).children()[1];
-    input.value = value;
-    clientSideFilter.search();
-});
+    $("#grid").prepend(clientSideFilter.render().el);
+    $('#model_table_search').keyup(function () {
+        var value = this.value;
+        var input = $(clientSideFilter.el).children()[1];
+        input.value = value;
+        clientSideFilter.search();
+    });
 
 // add table and pagination buttons to html
-$("#grid").append(grid.render().$el);
-$("#paginator").append(paginator.render().$el);
+    $("#grid").append(grid.render().$el);
+    $("#paginator").append(paginator.render().$el);
 
 // get models list from server
-pageableCollection.fetch();
+    pageableCollection.fetch();
 
-function cleanForm(form) {
-    var inputs = $(form).find('input');
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].value = '';
-    }
-}
-
-var newModel = new Model();
-var form = new Backform.Form({
-    el: '#create_form',
-    model: newModel,
-    fields: PageSettings.formFields,
-    events: {
-        'submit': function (e) {
-            e.preventDefault();
-            this.model.save().done(function (result) {
-                console.log(result);
-            });
-            return false;
+    function cleanForm(form) {
+        var inputs = $(form).find('input');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].value = '';
         }
     }
-}).render();
+
+    var newModel = new Model();
+    var form = new Backform.Form({
+        el: '#create_form',
+        model: newModel,
+        fields: PageSettings.formFields,
+        events: {
+            'submit': function (e) {
+                e.preventDefault();
+                this.model.save().done(function (result) {
+                    console.log(result);
+                });
+                return false;
+            }
+        }
+    }).render();
+})();
